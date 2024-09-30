@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/Inder-Regular.ttf",
+      "sha1": "9a6b94bc6dfaf51efe3b7de6ab993715ef0c709d"
+    },
+    {
       "path": "src/assets/fonts/Langar-Regular.ttf",
       "sha1": "0ee73c9e83d52279fd8139c64ec72953d6285517"
     }

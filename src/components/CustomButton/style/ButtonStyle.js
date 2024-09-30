@@ -16,9 +16,9 @@ export const Styles = StyleSheet.create({
         padding: 12,
     },
     btnName: {
-        fontFamily: fonts.REGULAR,
+        fontFamily: fonts.COMMON_REGULAR,
         fontSize: 20,
-        letterSpacing: 2,
+        letterSpacing: 1.5,
         color: 'black',
         textAlign: 'center',
     },
