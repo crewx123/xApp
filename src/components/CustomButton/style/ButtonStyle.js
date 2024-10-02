@@ -6,14 +6,14 @@ export const Styles = StyleSheet.create({
         position: 'relative',
         margin: 'auto',
         width: '90%',
-        backgroundColor: 'white',
-        borderRadius: 8,
+        // borderRadius: 8,
     },
     btnNameContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         gap: 24,
         padding: 12,
+        // borderRadius: 8
     },
     btnName: {
         fontFamily: fonts.COMMON_REGULAR,
@@ -22,9 +22,4 @@ export const Styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center',
     },
-    iconContainer: {
-        // position: 'absolute',
-        // top: '42%',
-        // left: '8%',
-    }
 });

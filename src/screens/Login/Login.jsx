@@ -15,6 +15,12 @@ import {
 
 
 const Login = ({ appName }) => {
+
+    const gradientColors = {
+        gradient1: ['#3596A9', '#379E8D'],
+        gradient2: ['#D56736', '#D80D5F'],
+    }
+
     return (
         <SafeAreaView style={{ height: '100%' }}>
             <View style={styles.loginContainer}>
@@ -29,8 +35,18 @@ const Login = ({ appName }) => {
                         </View>
                         <View style={styles.buttonsMainContainer}>
                             <View style={styles.buttonsContainer}>
-                                <CustomButton name="SIGN IN" />
-                                <CustomButton IsDisplayIcon={true} iconName="google" name="Continue With Google" />
+                                <CustomButton name="SIGN IN"
+                                    btnNameColor='#fff'
+                                    gradientColor={gradientColors.gradient1}
+                                />
+                                <CustomButton
+                                    gradientColor={gradientColors.gradient2}
+                                    IsDisplayIcon={true}
+                                    iconName="google"
+                                    iconColor='#fff'
+                                    name="Continue With Google"
+                                    btnNameColor='#fff'
+                                />
                             </View>
                             <View style={{ paddingBottom: 16 }}>
                                 <Text style={styles.commonTextColor}>Don't have an account ?</Text>

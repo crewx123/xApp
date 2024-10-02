@@ -8,8 +8,6 @@ export const styles = StyleSheet.create({
         backgroundColor: Colors.primary,
     },
     logoContainer: {
-        // borderColor: '#fff',
-        // borderWidth: 2,
         width: '100%',
         paddingTop: 100,
         justifyContent: 'center',
@@ -31,8 +29,6 @@ export const styles = StyleSheet.create({
         fontSize: 24.5,
     },
     buttonsMainContainer:{
-        // borderColor: '#fff',
-        // borderWidth: 2,
         gap: '420%', 
     },
     buttonsContainer: {
