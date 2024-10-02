@@ -4,9 +4,9 @@ import { Styles } from './style/ButtonStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Button = ({ name, btnNameColor, buttonBackgroundColor, IsDisplayIcon = false, iconName, iconColor, gradientColor }) => {
+const Button = ({ name, btnNameColor, IsDisplayIcon = false, iconName, iconColor, gradientColor }) => {
     return (
-        <View style={{ ...Styles.buttonContainer, backgroundColor: buttonBackgroundColor || '#fff', }}>
+        <View style={Styles.buttonContainer}>
             <Pressable
                 onPress={() => {
                     console.log('Button pressed');
