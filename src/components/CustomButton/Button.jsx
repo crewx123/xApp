@@ -4,13 +4,11 @@ import { Styles } from './style/ButtonStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Button = ({ name, btnNameColor, IsDisplayIcon = false, iconName, iconColor, gradientColor }) => {
+const Button = ({ name, btnNameColor, onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor }) => {
     return (
         <View style={Styles.buttonContainer}>
             <Pressable
-                onPress={() => {
-                    console.log('Button pressed');
-                }}
+                onPress={onPress}
                 android_ripple={{ color: 'rgba(255, 255, 255, 0.3)' }} // Ripple effect color
                 style={({ pressed }) => [
                     {
@@ -29,7 +27,7 @@ const Button = ({ name, btnNameColor, IsDisplayIcon = false, iconName, iconColor
                 >
                     {IsDisplayIcon && <View style={Styles.iconContainer} >
                         <Text >
-                            <Icon name={iconName} color={iconColor || '#000'} size={30} />
+                            <Icon name={iconName} color={iconColor || '#000'} size={28} />
                         </Text>
                     </View>}
                     <View>

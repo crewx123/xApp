@@ -30,7 +30,7 @@ const Login = ({ appName }) => {
                 </View>
                 <View style={{ flex: 1 }}>
                     <View style={styles.bottomContainer}>
-                        <View style={{ paddingBottom: 24, }}>
+                        <View style={{ paddingBottom: 24 }}>
                             <Text style={styles.commonTextColor}>Login to Your Account</Text>
                         </View>
                         <View style={styles.buttonsMainContainer}>

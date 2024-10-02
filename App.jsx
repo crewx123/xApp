@@ -18,6 +18,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Registration from './src/screens/Registration/Registration';
 
 // import {
 //   Colors,
@@ -68,7 +69,8 @@ const App = () => {
         barStyle="light-content"
         backgroundColor={Colors.primary}
       />
-      <Login appName="Title Name" />
+      {/* <Login appName="Title Name" /> */}
+      <Registration />
     </SafeAreaView>
   );
 }

@@ -5,7 +5,7 @@ export const Styles = StyleSheet.create({
     buttonContainer:{
         position: 'relative',
         margin: 'auto',
-        width: '90%',
+        width: '100%',
         // borderRadius: 8,
     },
     btnNameContainer: {

@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     loginContainer: {
         flex: 1,
         backgroundColor: Colors.primary,
+        paddingHorizontal: 16,
     },
     logoContainer: {
         width: '100%',
