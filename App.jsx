@@ -19,6 +19,7 @@ import {
   View,
 } from 'react-native';
 import Registration from './src/screens/Registration/Registration';
+import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
 
 // import {
 //   Colors,
@@ -70,7 +71,8 @@ const App = () => {
         backgroundColor={Colors.primary}
       />
       {/* <Login appName="Title Name" /> */}
-      <Registration />
+      {/* <Registration /> */}
+      <ForgotPassword />
     </SafeAreaView>
   );
 }

@@ -114,7 +114,7 @@ const Registration = () => {
                     />
 
                     <CustomButton
-                        gradientColor={gradientColors.gradient1}
+                        gradientColor={gradientColors.gradient2}
                         name='Sign Up'
                         btnNameColor='#fff'
                         onPress={handleValidation}

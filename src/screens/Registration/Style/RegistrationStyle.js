@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
     newUserDesContainer: {
         width: '100%',
         paddingVertical: 40,
-        gap: 8,
+        gap: 5,
     },
 
     textCommon: {

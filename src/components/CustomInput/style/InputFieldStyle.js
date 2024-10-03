@@ -33,7 +33,7 @@ export const Styles = StyleSheet.create({
       },
 
       showButton: {
-        color: '#007BFF',
+        color: '#D80D5F',
         fontWeight: 'bold',
         paddingLeft: 10,
       },
