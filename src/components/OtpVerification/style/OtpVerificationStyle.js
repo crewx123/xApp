@@ -1,17 +1,17 @@
 import { StyleSheet } from "react-native";
+import { fonts } from "../../../theme/Fonts";
 
 export const Styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 30,
         marginTop: 50,
       },
       input: {
-        width: 50,
-        height: 50,
-        borderWidth: 1,
+        fontFamily: fonts.COMMON_REGULAR,
+        padding: 20,
         borderRadius: 5,
+        backgroundColor: '#272728',
         textAlign: 'center',
         fontSize: 20,
       },

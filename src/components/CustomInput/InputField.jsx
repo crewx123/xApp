@@ -15,7 +15,7 @@ const InputField = ({ labelName, name, setName, inputType = 'default', iconColor
     return (
         <View>
             <Text style={Styles.eachInputLabel}>{labelName}</Text>
-            <View style={{ ...Styles.inputContainer, marginBottom: errorName ? 0 : 20 }}>
+            <View style={{ ...Styles.inputContainer, marginBottom: errorName ? 0 : 10 }}>
                 <Icon name={iconName} size={20} color={iconColor} style={Styles.icon} />
                 {inputType !== 'password' ? <TextInput
                     style={Styles.input}

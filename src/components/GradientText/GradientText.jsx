@@ -20,7 +20,7 @@ const GradientText = ({ text, textSize, gradientColor }) => {
                 useAngle={true}
                 angle={45}
                 angleCenter={{ x: 0.6, y: 0.3 }}
-                style={Styles.gradient}
+                style={{ flex: 1 }}
             />
         </MaskedView>
     )
