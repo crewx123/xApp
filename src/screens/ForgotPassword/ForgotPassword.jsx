@@ -45,23 +45,26 @@ const ForgotPassword = () => {
                     </View>
                 </View>
                 <View style={Styles.formContainer}>
-                    <CustomInputField
-                        labelName='Email'
-                        name={email}
-                        setName={setEmail}
-                        iconName='mail-outline'
-                        iconColor='#666'
-                        keyboardType='email-address'
-                        inputPlaceholder='Enter your mail'
-                        errorName={errors.email}
-                    />
-
-                    <CustomButton
-                        gradientColor={gradientColors.gradient2}
-                        name='Sign Up'
-                        btnNameColor='#fff'
-                        onPress={handleValidation}
-                    />
+                    <View>
+                        <CustomInputField
+                            labelName='Email'
+                            name={email}
+                            setName={setEmail}
+                            iconName='mail-outline'
+                            iconColor='#666'
+                            keyboardType='email-address'
+                            inputPlaceholder='Enter your mail'
+                            errorName={errors.email}
+                        />
+                    </View>
+                    <View>
+                        <CustomButton
+                            gradientColor={gradientColors.gradient2}
+                            name='Continue'
+                            btnNameColor='#fff'
+                            onPress={handleValidation}
+                        />
+                    </View>
                 </View>
             </View>
         </SafeAreaView>

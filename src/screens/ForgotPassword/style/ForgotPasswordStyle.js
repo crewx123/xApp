@@ -26,9 +26,8 @@ export const Styles = StyleSheet.create({
     },
     formContainer: {
         flex: 1, 
-        borderWidth: 2,
-        borderColor: '#fff',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
+        paddingBottom: 16,
     }
 });
