@@ -7,12 +7,12 @@ import CheckBox from '@react-native-community/checkbox';
 import { Styles } from './Style/LoginFormStyle';
 
 
-const LoginForm = () => {
+const LoginForm = ({ navigation }) => {
 
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
-    }
+    };
 
     // const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -116,11 +116,11 @@ const LoginForm = () => {
                         onPress={handleValidation}
                     />
                 </View>
-                <View style={{ flex: 1, paddingBottom: 10, }}>
+                <View style={{ flex: 1, paddingBottom: 20, }}>
                     <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', gap: 5 }}>
                             <Text style={Styles.textCommon}>Don't have an account?</Text>
-                            <Text style={{ ...Styles.textCommon, color: '#D80D5F' }}>Sign Up</Text>
+                            <Text style={{ ...Styles.textCommon, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
                         </View>
                     </View>
                 </View>

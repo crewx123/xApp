@@ -1,5 +1,5 @@
 import React from 'react';
-import { appLogo } from '../../theme/Images';
+import { appLogo, eComLogo } from '../../theme/Images';
 import CustomButton from '../../components/CustomButton/Button';
 import { styles } from './Style/LoginStyle';
 
@@ -14,11 +14,15 @@ import {
 } from 'react-native';
 
 
-const Login = ({ appName }) => {
+const Login = ({ navigation }) => {
 
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
+    }
+
+    const handleOnPressSignIn = () => {
+        navigation.navigate('LoginForm')
     }
 
     return (
@@ -26,7 +30,9 @@ const Login = ({ appName }) => {
             <View style={styles.loginContainer}>
                 <View style={styles.logoContainer}>
                     <Image source={appLogo} style={styles.logo} resizeMode="contain" />
-                    <Text style={styles.applicationName}>{appName}</Text>
+                    {/* <Image source={eComLogo} style={styles.logo} resizeMode="contain" /> */}
+                    {/* <EcomLogo width={100} height={100} /> */}
+                    <Text style={styles.applicationName}>App Name</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                     <View style={styles.bottomContainer}>
@@ -38,6 +44,7 @@ const Login = ({ appName }) => {
                                 <CustomButton name="SIGN IN"
                                     btnNameColor='#fff'
                                     gradientColor={gradientColors.gradient1}
+                                    onPress={handleOnPressSignIn}
                                 />
                                 <CustomButton
                                     gradientColor={gradientColors.gradient2}
@@ -48,15 +55,17 @@ const Login = ({ appName }) => {
                                     btnNameColor='#fff'
                                 />
                             </View>
-                            <View style={{ paddingBottom: 16 }}>
-                                <Text style={styles.commonTextColor}>Don't have an account ?</Text>
-                            </View>
                         </View>
                     </View>
                 </View>
+                <View style={{ paddingBottom: 20 }}>
+                    <View style={styles.signUpContainer}>
+                        <Text style={styles.commonTextColor}>Don't have an account?</Text>
+                        <Text style={{ ...styles.commonTextColor, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
+                    </View>
+                </View>
             </View>
-
-        </SafeAreaView>
+        </SafeAreaView >
     )
 };
 export default Login;

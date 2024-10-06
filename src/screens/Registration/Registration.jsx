@@ -3,23 +3,27 @@ import { useState } from 'react';
 import { Styles } from './Style/RegistrationStyle';
 import CustomButton from '../../components/CustomButton/Button';
 import CustomInputField from '../../components/CustomInput/InputField';
-// import { Picker } from '@react-native-picker/picker';
 import { SafeAreaView, View, Text } from 'react-native';
+import { registerApi } from '../../utils/registerAPI';
 
 
 const Registration = () => {
 
-    const gradientColors = {
+    const gradientColors = {  
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
     }
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [submitRegisterClicked, setSubmitRegisterClicked] = useState(false);
+
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    // const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('Male');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [errors, setErrors] = useState({});
+    const pickerList = ['Male', 'Female', 'Others'];
 
 
     const handleValidation = () => {
@@ -35,13 +39,16 @@ const Registration = () => {
             errors.phoneNumber = 'Mobile is required';
         }
 
-        if (!email) {
-            errors.email = 'Email is required';
-            valid = false;
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            errors.email = 'Invalid email address';
-            valid = false;
+        if (!gender) {
+            errors.gender = 'Gender is Required';
         }
+        // if (!email) {
+        //     errors.email = 'Email is required';
+        //     valid = false;
+        // } else if (!/\S+@\S+\.\S+/.test(email)) {
+        //     errors.email = 'Invalid email address';
+        //     valid = false;
+        // }
 
         if (!password) {
             errors.password = 'Password is required';
@@ -55,7 +62,16 @@ const Registration = () => {
         return valid;
     };
 
-
+    const handleOnSubmitRegisterForm = () => {
+        // event.preventDefault();
+        setSubmitRegisterClicked(true);
+        console.log(handleValidation());
+        if (handleValidation()) {
+            const sendData = { name, mobile: phoneNumber, gender, password };
+            console.log(sendData);
+            registerApi( setIsLoading, sendData, setErrors );
+        }
+    }
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -80,15 +96,27 @@ const Registration = () => {
                     />
 
                     <CustomInputField
+                        labelName='Gender'
+                        name={gender}
+                        setName={setGender}
+                        iconName='male-female-outline'
+                        iconColor='#666'
+                        inputType='picker'
+                        inputPlaceholder='Select your gender'
+                        pickerList={pickerList}
+                        errorName={errors.gender}
+                    />
+
+                    {/* <CustomInputField
                         labelName='Email'
                         name={email}
                         setName={setEmail}
                         iconName='mail-outline'
                         iconColor='#666'
-                        keyboardType='email-address'
+                        inputType='email-address'
                         inputPlaceholder='Enter your mail'
                         errorName={errors.email}
-                    />
+                    /> */}
 
                     <CustomInputField
                         labelName='Mobile'
@@ -117,9 +145,10 @@ const Registration = () => {
                         gradientColor={gradientColors.gradient2}
                         name='Sign Up'
                         btnNameColor='#fff'
-                        onPress={handleValidation}
+                        onPress={handleOnSubmitRegisterForm}
                     />
                 </View>
+                {submitRegisterClicked && errors.length !== 0 && <View><Text>{errors.status}</Text></View>}
             </View>
         </SafeAreaView>
     )
@@ -128,19 +157,24 @@ const Registration = () => {
 export default Registration;
 
 
+
+
+
+
+
 {/* <View>
-    <Text>Gender</Text>
-    <View style={{ ...Styles.inputContainer, paddingRight: 8 }}>
-        <Icon name="male-female-outline" size={20} color="#666" style={Styles.icon} />
-        <Picker
-            selectedValue={gender}
-            style={Styles.picker}
-            onValueChange={(itemValue) => setGender(itemValue)}
-        >
-            <Picker.Item label="Select Gender" value="Select Gender" />
-            <Picker.Item label="Male" value="male" />
-            <Picker.Item label="Female" value="female" />
-            <Picker.Item label="Other" value="other" />
-        </Picker>
-    </View>
+<Text>Gender</Text>
+<View style={{ ...Styles.inputContainer, paddingRight: 8 }}>
+    <Icon name="male-female-outline" size={20} color="#666" style={Styles.icon} />
+    <Picker
+        selectedValue={gender}
+        style={Styles.picker}
+        onValueChange={(itemValue) => setGender(itemValue)}
+    >
+        <Picker.Item label="Select Gender" value="Select Gender" />
+        <Picker.Item label="Male" value="male" />
+        <Picker.Item label="Female" value="female" />
+        <Picker.Item label="Other" value="other" />
+    </Picker>
+</View>
 </View> */}
