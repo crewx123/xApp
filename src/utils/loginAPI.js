@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const registerApi = async (setLoader, registerData, setErrors) => {
+export const loginApi = async (setLoader, loginCredentials, setErrors) => {
   setLoader(true);
   
   try {
-    const sendRequest = await axios.post(`http://192.168.220.56:8080/users/register`, registerData, {
+    const sendRequest = await axios.post(`http://192.168.220.56:8080/users/login`, loginCredentials, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -22,7 +22,7 @@ export const registerApi = async (setLoader, registerData, setErrors) => {
       const status = error.response.status;
       if (status === 404 || status === 400) {
         console.log("Response", error.response.data);
-        setErrors({ status: error.response.data.message || "Resource not found" });
+        setErrors({ email: error.response.data.response || "Resource not found" });
       } else if (status === 500) {
         const errorsList = error.response.data.errors;
         console.log(errorsList);

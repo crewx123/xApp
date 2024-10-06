@@ -9,7 +9,7 @@ import { registerApi } from '../../utils/registerAPI';
 
 const Registration = () => {
 
-    const gradientColors = {  
+    const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
     }
@@ -17,11 +17,11 @@ const Registration = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [submitRegisterClicked, setSubmitRegisterClicked] = useState(false);
 
-    const [name, setName] = useState('');
+    const [fullName, setFullName] = useState('');
     // const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [gender, setGender] = useState('Male');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [mobile, setMobile] = useState('');
     const [errors, setErrors] = useState({});
     const pickerList = ['Male', 'Female', 'Others'];
 
@@ -30,13 +30,13 @@ const Registration = () => {
         let valid = true;
         let errors = {};
 
-        if (!name) {
-            errors.name = 'Name is required';
+        if (!fullName) {
+            errors.fullName = 'Name is required';
             valid = false;
         }
 
-        if (!phoneNumber) {
-            errors.phoneNumber = 'Mobile is required';
+        if (!mobile) {
+            errors.mobile = 'Mobile is required';
         }
 
         if (!gender) {
@@ -63,13 +63,12 @@ const Registration = () => {
     };
 
     const handleOnSubmitRegisterForm = () => {
-        // event.preventDefault();
         setSubmitRegisterClicked(true);
         console.log(handleValidation());
         if (handleValidation()) {
-            const sendData = { name, mobile: phoneNumber, gender, password };
+            const sendData = { fullName, mobile, gender, password };
             console.log(sendData);
-            registerApi( setIsLoading, sendData, setErrors );
+            registerApi(setIsLoading, sendData, setErrors);
         }
     }
 
@@ -87,12 +86,12 @@ const Registration = () => {
                 <View style={Styles.formContainer}>
                     <CustomInputField
                         labelName='Name'
-                        name={name}
-                        setName={setName}
+                        name={fullName}
+                        setName={setFullName}
                         iconName='person-outline'
                         iconColor='#666'
                         inputPlaceholder='Enter your name'
-                        errorName={errors.name}
+                        errorName={errors.fullName}
                     />
 
                     <CustomInputField
@@ -120,14 +119,14 @@ const Registration = () => {
 
                     <CustomInputField
                         labelName='Mobile'
-                        name={phoneNumber}
-                        setName={setPhoneNumber}
+                        name={mobile}
+                        setName={setMobile}
                         iconName='call-outline'
                         inputType='phone-pad'
                         iconColor='#666'
                         inputPlaceholder='Enter your mobile'
                         maxInputSize={10}
-                        errorName={errors.phoneNumber}
+                        errorName={errors.mobile}
                     />
 
                     <CustomInputField
@@ -155,26 +154,3 @@ const Registration = () => {
 }
 
 export default Registration;
-
-
-
-
-
-
-
-{/* <View>
-<Text>Gender</Text>
-<View style={{ ...Styles.inputContainer, paddingRight: 8 }}>
-    <Icon name="male-female-outline" size={20} color="#666" style={Styles.icon} />
-    <Picker
-        selectedValue={gender}
-        style={Styles.picker}
-        onValueChange={(itemValue) => setGender(itemValue)}
-    >
-        <Picker.Item label="Select Gender" value="Select Gender" />
-        <Picker.Item label="Male" value="male" />
-        <Picker.Item label="Female" value="female" />
-        <Picker.Item label="Other" value="other" />
-    </Picker>
-</View>
-</View> */}

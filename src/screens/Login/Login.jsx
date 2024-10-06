@@ -30,7 +30,6 @@ const Login = ({ navigation }) => {
             <View style={styles.loginContainer}>
                 <View style={styles.logoContainer}>
                     <Image source={appLogo} style={styles.logo} resizeMode="contain" />
-                    {/* <Image source={eComLogo} style={styles.logo} resizeMode="contain" /> */}
                     {/* <EcomLogo width={100} height={100} /> */}
                     <Text style={styles.applicationName}>App Name</Text>
                 </View>

@@ -4,6 +4,7 @@ import { SafeAreaView, View, Text } from 'react-native';
 import CustomInputField from '../../components/CustomInput/InputField';
 import CustomButton from '../../components/CustomButton/Button';
 import CheckBox from '@react-native-community/checkbox';
+import { loginApi } from '../../utils/loginAPI';
 import { Styles } from './Style/LoginFormStyle';
 
 
@@ -14,8 +15,8 @@ const LoginForm = ({ navigation }) => {
         gradient2: ['#D56736', '#D80D5F'],
     };
 
-    // const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [isLoginLoading, setIsLoginLoading] = useState(false);
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberIsChecked, setRememberIsChecked] = useState(true)
     const [errors, setErrors] = useState({});
@@ -25,29 +26,29 @@ const LoginForm = ({ navigation }) => {
         let valid = true;
         let errors = {};
 
-        if (!phoneNumber) {
-            errors.phoneNumber = 'Mobile is required';
+        if (!email) {
+            errors.email = 'Email is required';
+            valid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = 'Invalid email address';
+            valid = false;
         }
-
-        // if (!email) {
-        //     errors.email = 'Email is required';
-        //     valid = false;
-        // } else if (!/\S+@\S+\.\S+/.test(email)) {
-        //     errors.email = 'Invalid email address';
-        //     valid = false;
-        // }
 
         if (!password) {
             errors.password = 'Password is required';
-            valid = false;
-        } else if (password.length < 8) {
-            errors.password = 'Password must be at least 8 characters';
             valid = false;
         }
 
         setErrors(errors);
         return valid;
     };
+
+    const handleLoginOnClick = () => {
+        if (handleValidation()) {
+            const loginCredentials = { email, password };
+            loginApi(setIsLoginLoading, loginCredentials, setErrors);
+        }
+    }
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -62,7 +63,7 @@ const LoginForm = ({ navigation }) => {
                 </View>
                 <View style={Styles.formContainer}>
 
-                    {/* <CustomInputField
+                    <CustomInputField
                         labelName='Email'
                         name={email}
                         setName={setEmail}
@@ -71,18 +72,6 @@ const LoginForm = ({ navigation }) => {
                         keyboardType='email-address'
                         inputPlaceholder='Enter your mail'
                         errorName={errors.email}
-                    /> */}
-
-                    <CustomInputField
-                        labelName='Mobile'
-                        name={phoneNumber}
-                        setName={setPhoneNumber}
-                        iconName='call-outline'
-                        inputType='phone-pad'
-                        iconColor='#666'
-                        inputPlaceholder='Enter your mobile'
-                        maxInputSize={10}
-                        errorName={errors.phoneNumber}
                     />
 
                     <CustomInputField
@@ -113,7 +102,7 @@ const LoginForm = ({ navigation }) => {
                         gradientColor={gradientColors.gradient2}
                         name='Sign In'
                         btnNameColor='#fff'
-                        onPress={handleValidation}
+                        onPress={handleLoginOnClick}
                     />
                 </View>
                 <View style={{ flex: 1, paddingBottom: 20, }}>
