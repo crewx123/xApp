@@ -17,6 +17,8 @@ const Registration = () => {
         gradient2: ['#D56736', '#D80D5F'],
     }
 
+    const subHeadingContent = "Enter your email id for the verification of your email Id"
+
     const [isLoading, setIsLoading] = useState(false);
     const [otpVerificationProcess, setOtpVerificationProcess] = useState({
         isEmailVerified: false,
@@ -105,6 +107,7 @@ const Registration = () => {
             {!otpVerificationProcess.isEmailVerified ?
                 <EmailVerificationPage
                     heading='Email Verification'
+                    subHeading={subHeadingContent}
                     value={email}
                     setValue={setEmail}
                     buttonColor={gradientColors.gradient2}

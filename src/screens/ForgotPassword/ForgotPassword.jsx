@@ -5,7 +5,7 @@ import CustomButton from '../../components/CustomButton/Button';
 import { SafeAreaView, View, Text } from 'react-native';
 
 
-const ForgotPassword = ({ heading, value, setValue, errorName, buttonColor, onPress = null }) => {
+const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, buttonColor, onPress = null }) => {
 
     // const gradientColors = {
     //     gradient1: ['#3596A9', '#379E8D'],
@@ -38,8 +38,7 @@ const ForgotPassword = ({ heading, value, setValue, errorName, buttonColor, onPr
                     </View>
                     <View>
                         <Text style={{ ...Styles.forgotPassInfo, ...Styles.commonTextFont }}>
-                            Enter the email associated with your account and we'll send an email
-                            instruction to reset your password
+                            {subHeading || "Enter the email associated with your account and we'll send an email instruction to reset your password"}
                         </Text>
                     </View>
                 </View>
