@@ -5,8 +5,8 @@ import { fonts } from '../../../theme/Fonts';
 export const styles = StyleSheet.create({
     loginContainer: {
         flex: 1,
-        backgroundColor: Colors.primary,
-        // backgroundColor: '#232323',
+        // backgroundColor: Colors.primary,
+        backgroundColor: '#232323',
         paddingHorizontal: 16,
     },
     logoContainer: {
@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     },
     applicationName: {
         fontFamily: fonts.REGULAR,
+        color: '#fff',
         fontSize: 24.5,
     },
     buttonsMainContainer:{
@@ -46,7 +47,7 @@ export const styles = StyleSheet.create({
     commonTextColor:{
         fontFamily: fonts.COMMON_REGULAR,
         fontSize: 16,
-        color: 'rgba(255, 255, 255, 58%)',
+        color: '#fff',
         textAlign: 'center',
         // letterSpacing: 1,
     }
