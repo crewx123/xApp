@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const loginApi = async (setLoader, loginCredentials, setErrors) => {
+export const sendOTP_Api = async (setLoader, email, setErrors) => {
   setLoader(true);
   
   try {
-    const sendRequest = await axios.post(`http://192.168.116.56:8080/users/login`, loginCredentials, {
+    const sendRequest = await axios.post(`http://192.168.116.56:8080/users/emailOTPSent`, { email }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -45,7 +45,7 @@ export const loginApi = async (setLoader, loginCredentials, setErrors) => {
     // Other errors
     else {
     //   console.log('Error Message:', error.message);
-      setErrors({ status: error.message || 'Registration Failed, try again' });
+      setErrors({ status: error.message || 'Enter the valid email and, try again...' });
     }
   } finally {
     setLoader(false);
