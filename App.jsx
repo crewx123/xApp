@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './src/screens/Login/Login';
 import { Colors } from './src/theme/Colors';
 import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from './src/screens/AppNavigator/AppNavigation';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
@@ -82,11 +83,12 @@ const App = () => {
         barStyle="light-content"
         backgroundColor={Colors.primary}
       />
-      <Stack.Navigator initialRouteName='Login Welcome' >
+      <AppNavigator />
+      {/* <Stack.Navigator initialRouteName='Login Welcome' >
         <Stack.Screen name='Login Welcome' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='LoginForm' component={LoginForm} options={{ headerShown: false }} />
         <Stack.Screen name='Register' component={Registration} options={{ headerShown: false }} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
