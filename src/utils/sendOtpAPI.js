@@ -1,19 +1,19 @@
 import axios from "axios";
+import { Alert } from "react-native";
 
 export const sendOTP_Api = async (setLoader, email, setErrors) => {
   setLoader(true);
-  
   try {
-    const sendRequest = await axios.post(`http://192.168.116.56:8080/users/emailOTPSent`, { email }, {
+    const sendRequest = await axios.post(`http://192.168.110.56:8080/users/emailOTPSent`, { email }, {
       headers: {
         'Content-Type': 'application/json',
       },
       responseType: 'json', 
-      timeout: 5000, 
     });
     const response = sendRequest.data; 
+    setErrors('');
     console.log('Response:', response);
-
+    return true;
   } catch (error) {
     if (error.code === 'ECONNABORTED') {
       setErrors('Request timed out');
@@ -22,7 +22,7 @@ export const sendOTP_Api = async (setLoader, email, setErrors) => {
       const status = error.response.status;
       if (status === 404 || status === 400) {
         console.log("Response", error.response.data);
-        setErrors({ email: error.response.data.response || "Resource not found" });
+        setErrors({ email: error.response.data.response || 'Resource not found'});
       } else if (status === 500) {
         const errorsList = error.response.data.errors;
         console.log(errorsList);
@@ -47,7 +47,8 @@ export const sendOTP_Api = async (setLoader, email, setErrors) => {
     //   console.log('Error Message:', error.message);
       setErrors({ status: error.message || 'Enter the valid email and, try again...' });
     }
-  } finally {
+    return false;
+  } finally{
     setLoader(false);
   }
 };

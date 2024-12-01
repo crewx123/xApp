@@ -1,25 +1,27 @@
 import React from 'react';
-// import type {PropsWithChildren} from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+} from 'react-native';
 import Login from './src/screens/Login/Login';
 import { Colors } from './src/theme/Colors';
-import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './src/screens/AppNavigator/AppNavigation';
+// import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  StyleSheet,
-  useColorScheme,
-  View,
-  Button
-} from 'react-native';
 import Registration from './src/screens/Registration/Registration';
 import LoginForm from './src/screens/Login/LoginForm';
-import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
-import EmailVerification from './src/screens/EmailVerification/EmailVerification';
+import HomePage from './src/screens/HomePage/HomePage';
+import ProductList from './src/screens/ViewAllProucuts/ViewProducts';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MyProfileSection from './src/screens/MyProfile/MyProfile';
+import UpdateProfile from './src/screens/MyProfile/UpdateProfile/UpdateProfile';
+import AddressSection from './src/screens/MyProfile/Address/Address';
+import Notification from './src/screens/MyProfile/Notification/Notification';
+import AddNewAddress from './src/screens/MyProfile/Address/AddNewAddress/AddNewAddress';
+import { AuthProvider } from './src/context/Auth/Auth';
 
 // import {
 //   Colors,
@@ -77,19 +79,44 @@ const App = () => {
     // {/* <LoginForm /> */ }
 
     // </SafeAreaView >
-
-    <NavigationContainer>
+    <AuthProvider>
+      {/* <NavigationContainer> */}
       <StatusBar
         barStyle="light-content"
-        backgroundColor={Colors.primary}
+        backgroundColor={'#161D23'}
       />
-      <AppNavigator />
-      {/* <Stack.Navigator initialRouteName='Login Welcome' >
+      {/* <AppNavigator /> */}
+      <Stack.Navigator initialRouteName='Login Welcome' >
         <Stack.Screen name='Login Welcome' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='LoginForm' component={LoginForm} options={{ headerShown: false }} />
         <Stack.Screen name='Register' component={Registration} options={{ headerShown: false }} />
-      </Stack.Navigator> */}
-    </NavigationContainer>
+        <Stack.Screen name='Dashboard' component={HomePage} options={{ headerShown: false }} />
+        <Stack.Screen name='Products' component={ProductList}
+          options={{
+            title: 'Products',
+            headerRight: () => (
+              <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+                <TouchableOpacity>
+                  <Icon name="search-outline" size={20} color='#000' />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ position: 'relative' }} >
+                  <Icon name="bag-outline" size={20} color="#000" />
+                  <View style={{ position: 'absolute', width: 14.2, height: 14.2, borderRadius: 50, backgroundColor: 'red', bottom: -2, right: -1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ color: '#fff', fontSize: 8.5 }}>0</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )
+          }}
+        />
+        <Stack.Screen name='Profile' component={MyProfileSection} options={{ headerShown: false }} />
+        <Stack.Screen name='UpdateProfile' component={UpdateProfile} options={{ headerShown: false }} />
+        <Stack.Screen name='Address' component={AddressSection} options={{ headerShown: false }} />
+        <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
+        <Stack.Screen name='NewAddress' component={AddNewAddress} options={{ headerShown: false }} />
+      </Stack.Navigator>
+      {/* </NavigationContainer> */}
+    </AuthProvider>
   );
 }
 

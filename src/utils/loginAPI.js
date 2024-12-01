@@ -1,20 +1,30 @@
 import axios from "axios";
+import { storeToken } from "./token";
 
-export const loginApi = async (setLoader, loginCredentials, setErrors) => {
+axios.defaults.withCredentials = true;
+export const loginApi = async (setLoader, loginCredentials, setErrors, setUserInformation) => {
   setLoader(true);
-  
   try {
-    const sendRequest = await axios.post(`http://192.168.116.56:8080/users/login`, loginCredentials, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      responseType: 'json', 
-      timeout: 5000, 
-    });
+    const sendRequest = await axios.post(`http://192.168.255.56:8080/users/login`, loginCredentials,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        responseType: 'json',
+      }
+    );
     const response = sendRequest.data; 
     console.log('Response:', response);
+    if(response.success){
+      const { refreshToken } = response;
+      storeToken("token", refreshToken);
+      storeToken("userProfileData", JSON.stringify(response.userData));
+      setUserInformation((prev) => ({...prev, ...response.userData}));
+      return true;
+    }
 
   } catch (error) {
+    console.log(error);
     if (error.code === 'ECONNABORTED') {
       setErrors('Request timed out');
     } 
@@ -47,6 +57,7 @@ export const loginApi = async (setLoader, loginCredentials, setErrors) => {
     //   console.log('Error Message:', error.message);
       setErrors({ status: error.message || 'Registration Failed, try again' });
     }
+    return false;
   } finally {
     setLoader(false);
   }

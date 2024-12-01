@@ -5,7 +5,7 @@ import CustomButton from '../../components/CustomButton/Button';
 import { SafeAreaView, View, Text } from 'react-native';
 
 
-const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, buttonColor, onPress = null }) => {
+const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, buttonColor, onPress = null, isLoading = false }) => {
 
     // const gradientColors = {
     //     gradient1: ['#3596A9', '#379E8D'],
@@ -34,7 +34,7 @@ const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, butto
             <View style={Styles.forgotPassMainContainer}>
                 <View style={Styles.forgotPassDesContainer}>
                     <View>
-                        <Text style={{ ...Styles.forgotPassHeading, ...Styles.commonTextFont }}>{heading || 'Enter your heading'}</Text>
+                        <Text style={{ ...Styles.forgotPassHeading, ...Styles.commonTextFont, color: '#fff' }}>{heading || 'Enter your heading'}</Text>
                     </View>
                     <View>
                         <Text style={{ ...Styles.forgotPassInfo, ...Styles.commonTextFont }}>
@@ -61,6 +61,7 @@ const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, butto
                             name='Verify Email'
                             btnNameColor='#fff'
                             onPress={onPress}
+                            isLoading={isLoading}
                         />
                     </View>
                 </View>

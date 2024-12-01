@@ -5,7 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styles } from './style/InputFieldStyle';
 
-const InputField = ({ labelName, name, setName, inputType = 'default', iconColor, inputPlaceholder, iconName, maxInputSize = undefined, autoCapitalize = 'none', errorName = null, pickerList = [] }) => {
+const InputField = ({ labelName, labelNameColor, labelFontsize = 14, name, setName, textInputColor = '#fff', textInputPlaceHolderColor = '#fff', textInputBorderWidth = 0, textInputBorderColor = '', textInputFontSize = 16, textInputPaddingHorizontal = 16, inputType = 'default', iconColor, inputPlaceholder, textInputBackgroundColor = '', iconName, maxInputSize = undefined, autoCapitalize = 'none', errorName = null, pickerList = [], isRequired = false, multilineValue = false, numberOfLinesValue = 1 }) => {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -14,9 +14,12 @@ const InputField = ({ labelName, name, setName, inputType = 'default', iconColor
     };
 
     return (
-        <View>
-            <Text style={Styles.eachInputLabel}>{labelName}</Text>
-            <View style={{ ...Styles.inputContainer, marginBottom: errorName ? 0 : 10, paddingRight: inputType === 'picker' ? 8 : 20 }}>
+        <View style={{}}>
+            <View style={{ flexDirection: 'row', gap: 2 }}>
+                <Text style={{ ...Styles.eachInputLabel, color: labelNameColor ? labelNameColor : '#fff', fontSize: labelFontsize }}>{labelName}</Text>
+                {isRequired && <Text style={{ color: 'red' }}>*</Text>}
+            </View>
+            <View style={{ ...Styles.inputContainer, marginBottom: errorName ? 0 : 10, paddingRight: inputType === 'picker' ? 8 : 20, backgroundColor: textInputBackgroundColor ? textInputBackgroundColor : '#272728', borderWidth: textInputBorderWidth, borderColor: textInputBorderColor, paddingHorizontal: textInputPaddingHorizontal, }}>
                 <Icon name={iconName} size={20} color={iconColor} style={Styles.icon} />
                 {
                     inputType === 'picker' ?
@@ -32,20 +35,26 @@ const InputField = ({ labelName, name, setName, inputType = 'default', iconColor
                             }
                         </Picker> : inputType !== 'password' ?
                             <TextInput
-                                style={Styles.input}
+                                style={{ ...Styles.input, fontSize: textInputFontSize, color: textInputColor }}
                                 placeholder={inputPlaceholder}
                                 value={name}
                                 onChangeText={setName}
                                 keyboardType={inputType}
                                 maxLength={maxInputSize}
                                 autoCapitalize={autoCapitalize}
+                                placeholderTextColor={textInputPlaceHolderColor}
+                                multiline={multilineValue}
+                                numberOfLines={1}
                             /> : <>
                                 <TextInput
-                                    style={Styles.input}
+                                    style={{ ...Styles.input, fontSize: textInputFontSize, color: textInputColor }}
                                     placeholder="Password"
                                     value={name}
                                     onChangeText={setName}
                                     secureTextEntry={!isPasswordVisible}
+                                    placeholderTextColor={textInputPlaceHolderColor}
+                                    multiline={multilineValue}
+                                    numberOfLines={1}
                                 />
                                 <TouchableOpacity onPress={togglePasswordVisibility}>
                                     <Text style={Styles.showButton}>{isPasswordVisible ? 'Hide' : 'Show'}</Text>
@@ -54,7 +63,7 @@ const InputField = ({ labelName, name, setName, inputType = 'default', iconColor
                 }
             </View>
             {errorName && <View><Text style={Styles.errors}>{errorName}</Text></View>}
-        </View>
+        </View >
     )
 }
 

@@ -1,7 +1,10 @@
 import React from 'react';
-import { appLogo, eComLogo } from '../../theme/Images';
+import { useEffect } from 'react';
+import { appLogo } from '../../theme/Images';
 import CustomButton from '../../components/CustomButton/Button';
 import { styles } from './Style/LoginStyle';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import { useAuth } from '../../context/Auth/Auth';
 
 import {
     SafeAreaView,
@@ -15,6 +18,23 @@ import {
 
 
 const Login = ({ navigation }) => {
+    const { setUserInformation } = useAuth();
+    useEffect(() => {
+        async function checkToken() {
+            const token = await EncryptedStorage.getItem("token");
+            const userDataInfo = await EncryptedStorage.getItem('userProfileData');
+            if (token) {
+                console.log(token);
+                console.log("userData: ", { ...JSON.parse(userDataInfo) });
+                setUserInformation((prev) => ({ ...prev, ...JSON.parse(userDataInfo) }));
+                navigation.replace("Dashboard"); // Go to Home Screen
+            } else {
+                // navigation.replace("Login Welcome"); // Go to Login Screen
+                console.log('token not found');
+            }
+        }
+        checkToken();
+    }, []);
 
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
@@ -22,11 +42,15 @@ const Login = ({ navigation }) => {
     }
 
     const handleOnPressSignIn = () => {
-        navigation.navigate('LoginForm')
+        navigation.navigate('LoginForm');
     }
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor={'#161D23'}
+            />
             <View style={styles.loginContainer}>
                 <View style={styles.logoContainer}>
                     <Image source={appLogo} style={styles.logo} resizeMode="contain" />

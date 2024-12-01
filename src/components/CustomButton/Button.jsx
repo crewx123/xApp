@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { Styles } from './style/ButtonStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Button = ({ name, btnNameColor, onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor }) => {
+const Button = ({ name, btnNameColor, onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor, isLoading = false }) => {
     return (
         <View style={Styles.buttonContainer}>
             <Pressable
@@ -32,7 +32,7 @@ const Button = ({ name, btnNameColor, onPress = null, IsDisplayIcon = false, ico
                     </View>}
                     <View>
                         <Text style={{ ...Styles.btnName, color: btnNameColor || '#000' }}>
-                            {name ? name : 'Submit'}
+                            {isLoading ? <ActivityIndicator size='small' color='#fff' style={{ height: 30 }} /> : name || 'Submit'}
                         </Text>
                     </View>
                 </LinearGradient>

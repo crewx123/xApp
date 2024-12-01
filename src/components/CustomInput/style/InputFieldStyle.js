@@ -3,15 +3,14 @@ import { fonts } from "../../../theme/Fonts";
 
 export const Styles = StyleSheet.create({
     eachInputLabel: {
-        fontFamily: fonts.COMMON_REGULAR
+      fontFamily: fonts.COMMON_REGULAR
     },  
     inputContainer: {
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#272728',
         // borderWidth: 1,
         // borderColor: '#ccc',
-        paddingHorizontal: 16, 
         borderRadius: 5,
         // marginBottom: 20,
       },
@@ -21,9 +20,11 @@ export const Styles = StyleSheet.create({
       },
 
       input: {
-        flex: 1,
+        width: '100%',
         fontSize: 16,
-        fontFamily: fonts.COMMON_REGULAR
+        fontFamily: fonts.COMMON_REGULAR,
+        textAlignVertical: 'center',
+        overflow: 'scroll',
       },
 
       picker: {

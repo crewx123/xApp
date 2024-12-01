@@ -10,14 +10,14 @@ import { registerApi } from '../../utils/registerAPI';
 import { sendOTP_Api } from '../../utils/sendOtpAPI';
 
 
-const Registration = () => {
+const Registration = ({ navigation }) => {
 
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
     }
 
-    const subHeadingContent = "Enter your email id for the verification of your email Id"
+    const subHeadingContent = "Enter your email id for the verification of your email"
 
     const [isLoading, setIsLoading] = useState(false);
     const [otpVerificationProcess, setOtpVerificationProcess] = useState({
@@ -32,6 +32,7 @@ const Registration = () => {
     const [gender, setGender] = useState('Male');
     const [mobile, setMobile] = useState('');
     const [errors, setErrors] = useState({});
+    const [otp, setOtp] = useState(['', '', '', '']);
     const pickerList = ['Male', 'Female', 'Others'];
 
     const handleEmailValidation = () => {
@@ -51,8 +52,12 @@ const Registration = () => {
 
     const handleEmailVerification = () => {
         if (handleEmailValidation()) {
-            setOtpVerificationProcess((previous) => ({ ...previous, isEmailVerified: true, isOtpSent: true }));
-            sendOTP_Api(setIsLoading, email, setErrors);
+            sendOTP_Api(setIsLoading, email, setErrors).then((status) => {
+                console.log(status);
+                if (status) {
+                    setOtpVerificationProcess((previous) => ({ ...previous, isEmailVerified: false, isOtpSent: true }));
+                }
+            });
         }
     }
 
@@ -67,18 +72,20 @@ const Registration = () => {
 
         if (!mobile) {
             errors.mobile = 'Mobile is required';
+            valid = false
         }
 
         if (!gender) {
             errors.gender = 'Gender is Required';
+            valid = false
         }
-        // if (!email) {
-        //     errors.email = 'Email is required';
-        //     valid = false;
-        // } else if (!/\S+@\S+\.\S+/.test(email)) {
-        //     errors.email = 'Invalid email address';
-        //     valid = false;
-        // }
+        if (!email) {
+            errors.email = 'Email is required';
+            valid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = 'Invalid email address';
+            valid = false;
+        }
 
         if (!password) {
             errors.password = 'Password is required';
@@ -96,15 +103,20 @@ const Registration = () => {
         setSubmitRegisterClicked(true);
         console.log(handleValidation());
         if (handleValidation()) {
-            const sendData = { fullName, mobile, gender, password };
+            const sendData = { fullName, mobile, email, gender, password };
             console.log(sendData);
-            registerApi(setIsLoading, sendData, setErrors);
+            registerApi(setIsLoading, sendData, setErrors).then((status) => {
+                if (status) {
+                    // Alert.alert("User Regitered Successfully");
+                    navigation.navigate('Dashboard');
+                }
+            });
         }
     }
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
-            {!otpVerificationProcess.isEmailVerified ?
+            {!otpVerificationProcess.isOtpSent &&
                 <EmailVerificationPage
                     heading='Email Verification'
                     subHeading={subHeadingContent}
@@ -113,41 +125,40 @@ const Registration = () => {
                     buttonColor={gradientColors.gradient2}
                     errorName={errors?.email}
                     onPress={handleEmailVerification}
-                /> :
-                otpVerificationProcess.isOtpSent ? <OtpVerificationPage />
-                    : <View style={Styles.registrationMainContainer}>
-                        <View style={Styles.newUserDesContainer}>
-                            <View>
-                                <Text style={{ ...Styles.textCommon, ...Styles.createAccount }}>Create an account</Text>
-                            </View>
-                            <View>
-                                <Text style={{ ...Styles.greetings }}>Welcome! Please enter your details.</Text>
-                            </View>
-                        </View>
-                        <View style={Styles.formContainer}>
-                            <CustomInputField
-                                labelName='Name'
-                                name={fullName}
-                                setName={setFullName}
-                                iconName='person-outline'
-                                iconColor='#666'
-                                inputPlaceholder='Enter your name'
-                                errorName={errors.fullName}
-                            />
+                    isLoading={isLoading}
+                />
+            }
+            {
+                otpVerificationProcess.isOtpSent && !otpVerificationProcess.isEmailVerified &&
+                <OtpVerificationPage
+                    email={email}
+                    otp={otp}
+                    setOtp={setOtp}
+                    setOtpVerificationStatus={setOtpVerificationProcess}
+                />
+            }
 
-                            <CustomInputField
-                                labelName='Gender'
-                                name={gender}
-                                setName={setGender}
-                                iconName='male-female-outline'
-                                iconColor='#666'
-                                inputType='picker'
-                                inputPlaceholder='Select your gender'
-                                pickerList={pickerList}
-                                errorName={errors.gender}
-                            />
+            {otpVerificationProcess.isEmailVerified && <View style={Styles.registrationMainContainer}>
+                <View style={Styles.newUserDesContainer}>
+                    <View>
+                        <Text style={{ ...Styles.textCommon, ...Styles.createAccount }}>Create an account</Text>
+                    </View>
+                    <View>
+                        <Text style={{ ...Styles.greetings }}>Welcome! Please enter your details.</Text>
+                    </View>
+                </View>
+                <View style={Styles.formContainer}>
+                    <CustomInputField
+                        labelName='Name'
+                        name={fullName}
+                        setName={setFullName}
+                        iconName='person-outline'
+                        iconColor='#666'
+                        inputPlaceholder='Enter your name'
+                        errorName={errors.fullName}
+                    />
 
-                            {/* <CustomInputField
+                    <CustomInputField
                         labelName='Email'
                         name={email}
                         setName={setEmail}
@@ -156,40 +167,52 @@ const Registration = () => {
                         inputType='email-address'
                         inputPlaceholder='Enter your mail'
                         errorName={errors.email}
-                    /> */}
+                    />
 
-                            <CustomInputField
-                                labelName='Mobile'
-                                name={mobile}
-                                setName={setMobile}
-                                iconName='call-outline'
-                                inputType='phone-pad'
-                                iconColor='#666'
-                                inputPlaceholder='Enter your mobile'
-                                maxInputSize={10}
-                                errorName={errors.mobile}
-                            />
+                    <CustomInputField
+                        labelName='Mobile'
+                        name={mobile}
+                        setName={setMobile}
+                        iconName='call-outline'
+                        inputType='phone-pad'
+                        iconColor='#666'
+                        inputPlaceholder='Enter your mobile'
+                        maxInputSize={10}
+                        errorName={errors.mobile}
+                    />
 
-                            <CustomInputField
-                                labelName='Password'
-                                name={password}
-                                setName={setPassword}
-                                iconName='lock-closed-outline'
-                                iconColor='#666'
-                                inputType='password'
-                                inputPlaceholder='Enter your password'
-                                errorName={errors.password}
-                            />
+                    <CustomInputField
+                        labelName='Gender'
+                        name={gender}
+                        setName={setGender}
+                        iconName='male-female-outline'
+                        iconColor='#666'
+                        inputType='picker'
+                        inputPlaceholder='Select your gender'
+                        pickerList={pickerList}
+                        errorName={errors.gender}
+                    />
 
-                            <CustomButton
-                                gradientColor={gradientColors.gradient2}
-                                name='Sign Up'
-                                btnNameColor='#fff'
-                                onPress={handleOnSubmitRegisterForm}
-                            />
-                        </View>
-                        {submitRegisterClicked && errors.length !== 0 && <View><Text>{errors.status}</Text></View>}
-                    </View>}
+                    <CustomInputField
+                        labelName='Password'
+                        name={password}
+                        setName={setPassword}
+                        iconName='lock-closed-outline'
+                        iconColor='#666'
+                        inputType='password'
+                        inputPlaceholder='Enter your password'
+                        errorName={errors.password}
+                    />
+
+                    <CustomButton
+                        gradientColor={gradientColors.gradient2}
+                        name='Sign Up'
+                        btnNameColor='#fff'
+                        onPress={handleOnSubmitRegisterForm}
+                    />
+                </View>
+                {submitRegisterClicked && errors.length !== 0 && <View><Text style={{ color: 'red', fontStyle: 'italic' }}>{errors.status}</Text></View>}
+            </View>}
         </SafeAreaView>
     )
 }

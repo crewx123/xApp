@@ -2,17 +2,20 @@ import axios from "axios";
 
 export const registerApi = async (setLoader, registerData, setErrors) => {
   setLoader(true);
-  
+   
   try {
-    const sendRequest = await axios.post(`http://192.168.220.56:8080/users/register`, registerData, {
+    const sendRequest = await axios.post(`http://192.168.110.56:8080/users/register`, registerData, {
       headers: {
         'Content-Type': 'application/json',
       },
       responseType: 'json', 
-      timeout: 5000, 
     });
     const response = sendRequest.data; 
     console.log('Response:', response);
+    if(response.success){
+      setErrors('');
+      return true;
+    }
 
   } catch (error) {
     if (error.code === 'ECONNABORTED') {
@@ -22,13 +25,13 @@ export const registerApi = async (setLoader, registerData, setErrors) => {
       const status = error.response.status;
       if (status === 404 || status === 400) {
         console.log("Response", error.response.data);
-        setErrors({ status: error.response.data.message || "Resource not found" });
+        setErrors({ mobile: error.response.data.response });
       } else if (status === 500) {
         const errorsList = error.response.data.errors;
         console.log(errorsList);
         if(errorsList.length === 0){
             setErrors({ status: error.response.data.message || "Internal server error" });
-            return;
+            return false;
         }
         let newErrors = {};
         errorsList.map(({ path, msg }) => {
@@ -47,6 +50,8 @@ export const registerApi = async (setLoader, registerData, setErrors) => {
     //   console.log('Error Message:', error.message);
       setErrors({ status: error.message || 'Registration Failed, try again' });
     }
+
+    return false;
   } finally {
     setLoader(false);
   }

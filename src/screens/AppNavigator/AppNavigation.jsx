@@ -2,16 +2,8 @@ import React from 'react';
 // import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text } from 'react-native';
+import HomeScreen from '../../screens/HomePage/HomePage';
 import Icon from 'react-native-vector-icons/Ionicons'; // for icons
-
-// Sample Screens
-function HomeScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
-    );
-}
 
 function SettingsScreen() {
     return (
@@ -44,7 +36,7 @@ export default function App() {
                 tabBarInactiveTintColor: '#232323',
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'X-Price' }} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );

@@ -4,12 +4,13 @@ import { SafeAreaView, View, Text } from 'react-native';
 import CustomInputField from '../../components/CustomInput/InputField';
 import CustomButton from '../../components/CustomButton/Button';
 import CheckBox from '@react-native-community/checkbox';
-import { loginApi } from '../../utils/loginAPI';
+// import { loginApi } from '../../utils/loginAPI';
 import { Styles } from './Style/LoginFormStyle';
+import { useAuth } from '../../context/Auth/Auth';
 
 
 const LoginForm = ({ navigation }) => {
-
+    const { userLoginApi } = useAuth();
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
@@ -38,15 +39,15 @@ const LoginForm = ({ navigation }) => {
             errors.password = 'Password is required';
             valid = false;
         }
-
         setErrors(errors);
         return valid;
     };
 
     const handleLoginOnClick = () => {
+    console.log(email, password)
         if (handleValidation()) {
             const loginCredentials = { email, password };
-            loginApi(setIsLoginLoading, loginCredentials, setErrors);
+            userLoginApi(setIsLoginLoading, loginCredentials, setErrors);
         }
     }
 
@@ -103,6 +104,7 @@ const LoginForm = ({ navigation }) => {
                         name='Sign In'
                         btnNameColor='#fff'
                         onPress={handleLoginOnClick}
+                        isLoading={isLoginLoading}
                     />
                 </View>
                 <View style={{ flex: 1, paddingBottom: 20, }}>
