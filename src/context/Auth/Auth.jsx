@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { useState } from 'react';
 import { loginApi } from '../../utils/loginAPI';
+import { showAddressApi } from '../../utils/showAddressAPI';
+import { storeToken } from '../../utils/token';
 import { logoutApi } from '../../utils/logoutAPI';
 import { removeToken } from '../../utils/token';
 
@@ -9,16 +11,24 @@ const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+    const [isAddressLoading, setIsAddressLoading] = useState(false);
     const [userInformation, setUserInformation] = useState({
-        ipAddress: '192.168.255.56:8080'
+        ipAddress: '192.168.255.56:8080',
     });
+
     const navigationRef = useNavigationContainerRef();
 
     const userLoginApi = (setLoader, loginCredentials, setErrors) => {
         loginApi(setLoader, loginCredentials, setErrors, setUserInformation).then((status) => {
             if (status) {
-                console.log(status);
-                navigationRef.navigate('Dashboard');
+                showAddressApi(setIsAddressLoading).then((result) => {
+                    if (result) {
+                        console.log(result);
+                        storeToken("userAddressInfo", JSON.stringify(result));
+                        setUserInformation((prev) => ({ ...prev, userAddressInfo: result }))
+                        navigationRef.navigate('Dashboard');
+                    }
+                });
             }
         });
     }

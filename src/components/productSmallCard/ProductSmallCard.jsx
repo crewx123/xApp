@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 
-const ProductSmallCard = ({ imageWidth, imageHeight, topHeadingName, topSubHeadingName, addBtnLeft, addBtnRight, showDescription, showSecondRow = true, showProductsOnPress = null }) => {
+const ProductSmallCard = ({ navigation, imageWidth, imageHeight, topHeadingName, topSubHeadingName, addBtnLeft, addBtnRight, showDescription, showSecondRow = true, showProductsOnPress = null }) => {
     return (
         <View style={Styles.MainContainer}>
             <View style={Styles.HeadingContainer}>
@@ -18,10 +18,15 @@ const ProductSmallCard = ({ imageWidth, imageHeight, topHeadingName, topSubHeadi
                     <Text style={Styles.btnName}>shop all</Text>
                 </TouchableOpacity>
             </View>
-            <ScrollView style={Styles.CardContainer} horizontal={true} showsHorizontalScrollIndicator={false} bounces={false}>
+            <ScrollView
+                style={Styles.CardContainer}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                bounces={false}
+            >
                 <View style={{ flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row' }}>
-                        {[1, 2, 3, 4, 5].map((_, index) => (<View style={{ flexDirection: 'column' }} key={index}>
+                        {[1, 2, 3, 4, 5].map((_, index) => (<TouchableOpacity style={{ flexDirection: 'column' }} key={index} onPress={() => navigation.navigate('showProductInfo')}>
                             <View key={index} style={Styles.CardImageContainer}>
                                 <Image source={productImg} style={{ ...Styles.CardImage, width: imageWidth || 100, height: imageHeight || 140 }} resizeMode='cover' />
                                 <TouchableOpacity>
@@ -43,7 +48,7 @@ const ProductSmallCard = ({ imageWidth, imageHeight, topHeadingName, topSubHeadi
                                     </View>
                                 </View>
                             }
-                        </View>))}
+                        </TouchableOpacity>))}
                     </View>
                     {
                         showSecondRow &&

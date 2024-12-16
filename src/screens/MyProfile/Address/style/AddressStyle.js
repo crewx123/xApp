@@ -14,7 +14,7 @@ export const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
+    
     commonTextStyle: {
         fontFamily: fonts.COMMON_REGULAR,
         fontSize: 26,
@@ -28,14 +28,16 @@ export const Styles = StyleSheet.create({
 
     nameHeadingContainer: {
         flexDirection: 'row',
+        justifyContent: 'flex-start',
         alignItems: 'flex-end',
+        flexWrap: 'wrap',
         gap: 8
     },
     workTypeContainer: {
         backgroundColor: '#fff',
         borderRadius: 4,
         paddingHorizontal: 6,
-        paddingVertical: 4
+        paddingVertical: 4,
     },
 
     newAddressCard: {
@@ -64,7 +66,8 @@ export const Styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: 'rgba(200, 200, 200, 0.8)',
         borderRadius: 8,
-        paddingHorizontal: 12,
+        paddingLeft: 12,
+        paddingRight: 32,
         paddingVertical: 16, 
         gap: 8,
     }

@@ -22,14 +22,14 @@ const Login = ({ navigation }) => {
     useEffect(() => {
         async function checkToken() {
             const token = await EncryptedStorage.getItem("token");
-            const userDataInfo = await EncryptedStorage.getItem('userProfileData');
             if (token) {
-                console.log(token);
-                console.log("userData: ", { ...JSON.parse(userDataInfo) });
+                const userDataInfo = await EncryptedStorage.getItem('userProfileData');
+                const userAddressInfo = await EncryptedStorage.getItem('userAddressInfo')
+                console.log("userData: ", { ...JSON.parse(userAddressInfo) });
                 setUserInformation((prev) => ({ ...prev, ...JSON.parse(userDataInfo) }));
-                navigation.replace("Dashboard"); // Go to Home Screen
+                setUserInformation((prev) => ({ ...prev, userAddressInfo: JSON.parse(userAddressInfo) }));
+                navigation.replace("Dashboard"); // Go to Home Screen 
             } else {
-                // navigation.replace("Login Welcome"); // Go to Login Screen
                 console.log('token not found');
             }
         }

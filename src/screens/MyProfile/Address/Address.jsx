@@ -1,63 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar, ToastAndroid } from 'react-native';
+import { useAuth } from '../../../context/Auth/Auth';
+import { showAddressApi } from '../../../utils/showAddressAPI';
+import { storeToken } from '../../../utils/token';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { deleteAddressApi } from '../../../utils/deleteAddressAPI';
 import { Styles } from './style/AddressStyle';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Address = ({ navigation }) => {
 
-    const [savedAddresses, setSavedAddresses] = useState([
-        {
-            _id: 1,
-            fullName: 'Aditya Sharma',
-            workType: 'Home',
-            phone: 8178772580,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        },
-        {
-            _id: 2,
-            fullName: 'Prince Kumar',
-            workType: 'Office',
-            phone: 7011127782,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        },
-        {
-            _id: 3,
-            fullName: 'Shiv Shankar',
-            workType: 'Office',
-            phone: 2567272876,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        },
-        {
-            _id: 4,
-            fullName: 'Dikshant Singh',
-            workType: 'Home',
-            phone: 1782348764,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        },
-        {
-            _id: 5,
-            fullName: 'Dikshant Singh',
-            workType: 'Home',
-            phone: 1782348764,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        },
-        {
-            _id: 6,
-            fullName: 'Dikshant Singh',
-            workType: 'Home',
-            phone: 1782348764,
-            address: ['First Floor, F-377', 'F Block, Sector-63', 'Meerut Division', 'Uttar Pradesh', '201301']
-        }
-    ]);
+    const { userInformation, setUserInformation } = useAuth();
+    console.log(userInformation.userAddressInfo);
+    const [savedAddresses, setSavedAddresses] = useState(userInformation.userAddressInfo);
 
-    const onPressAddNewAddress = () => {
-        navigation.navigate('NewAddress');
+    useEffect(() => {
+        setSavedAddresses(userInformation.userAddressInfo);
+    }, [userInformation]);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onClickEditAddressBtn = (index, _id) => {
+        // setEditAddressBtnClickedIndex((prev) => ({ ...prev, btnClicked: true, btnClickedIndex: index }));
+        navigation.navigate('NewAddress', { data: { addressId: _id, ...savedAddresses[index] } });
     }
 
+    const onPressAddNewAddress = () => {
+        navigation.navigate('NewAddress', { data: null });
+    }
+
+    const onPressDeleteAddressBtn = (_id) => {
+        deleteAddressApi(setIsLoading, _id).then((status) => {
+            if (status) {
+                showAddressApi(setIsLoading).then((result) => {
+                    if (result) {
+                        setSavedAddresses(result);
+                        setUserInformation((prev) => ({ ...prev, userAddressInfo: result }));
+                        storeToken('userAddressInfo', JSON.stringify(result));
+                        navigation.goBack();
+                        ToastAndroid.show("Address Deleted Successfully", ToastAndroid.SHORT);
+                    }
+                });
+            }
+            else {
+                ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+            }
+        });
+    }
     return (
         <SafeAreaView style={Styles.myAddressMainContainer}>
             <StatusBar
@@ -98,12 +92,15 @@ const Address = ({ navigation }) => {
                     style={{ flex: 1 }}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View style={{ flexDirection: 'column', gap: 12 }}>
+                    <View style={{ flexDirection: 'column', position: 'relative', gap: 12 }}>
                         {
-                            savedAddresses.map(({ _id, fullName, workType, phone, address }) => (
+                            savedAddresses.length !== 0 && savedAddresses.map(({ _id, fullName, addressType, phone, address }, index) => (
                                 <View key={_id} style={Styles.eachAddressContainer}>
+                                    {/* {console.log(savedAddresses[0]['_id'], fullName, addressType, phone, address)} */}
                                     <View style={Styles.nameHeadingContainer}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 20, }}>{fullName}</Text>
+                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 20, }}>
+                                            {fullName}
+                                        </Text>
                                         <LinearGradient
                                             colors={['#238', '#000']}
                                             start={{ x: 0, y: 0 }}
@@ -113,15 +110,23 @@ const Address = ({ navigation }) => {
                                             angleCenter={{ x: 0.6, y: 0.3 }}
                                             style={Styles.workTypeContainer}
                                         >
-                                            <Text style={{ ...Styles.commonTextStyle, fontSize: 10, color: '#fff' }}>{workType}</Text>
+                                            <Text style={{ ...Styles.commonTextStyle, fontSize: 10, color: '#fff' }}>{addressType}</Text>
                                         </LinearGradient>
                                     </View>
                                     <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 14 }}>{address.join(', ')}</Text>
+                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 14 }}>{address?.join(', ')}</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 5 }}>
                                         <EntypoIcon name='old-phone' color='#000' />
                                         <Text style={{ ...Styles.commonTextStyle, fontSize: 15 }}>{phone}</Text>
+                                    </View>
+                                    <View style={{ position: 'absolute', right: 8, top: 8 }}>
+                                        <TouchableOpacity onPress={() => onPressDeleteAddressBtn(_id)}>
+                                            <MaterialIcon name='delete' size={20} color='rgb(240, 0, 0)' />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => onClickEditAddressBtn(index, _id)}>
+                                            <MaterialCommunityIcon name='store-edit' size={20} color='#238' />
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             ))

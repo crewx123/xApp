@@ -24,10 +24,14 @@ const MyProfile = ({ navigation }) => {
         navigation.navigate('Address')
     }
 
+    const onPressOrders = () => {
+        navigation.navigate('Orders');
+    }
+
     const profileMenuList = [
         {
             heading: 'Your Information',
-            subMenuList: [['Edit Profile', 'user-edit', onPressEditProfile], ['Your Orders', 'box-open', null], ['Notification', 'bell', null], ['Address', 'map-marker-alt', onPressAddress], ['GST Details', 'form', null]]
+            subMenuList: [['Edit Profile', 'user-edit', onPressEditProfile], ['Your Orders', 'box-open', onPressOrders], ['Notification', 'bell', null], ['Address', 'map-marker-alt', onPressAddress], ['GST Details', 'form', null]]
         },
         {
             heading: 'Other Information',

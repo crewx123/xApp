@@ -7,7 +7,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { styles } from './style/NavBarStyle';
 
-const NavBar = ({ navigation, BackgroundColor, setIsMenuDrawerVisible = null, setIsSearchBarDrawerVisible = null, setIsAddToCartDrawerVisible = null, handleOnPressMyProfile = null }) => {
+const NavBar = ({ BackgroundColor, setIsMenuDrawerVisible = null, setIsSearchBarDrawerVisible = null, setIsAddToCartDrawerVisible = null, handleOnPressMyProfile = null }) => {
 
     const openMenuDrawer = () => {
         if (setIsMenuDrawerVisible !== null)

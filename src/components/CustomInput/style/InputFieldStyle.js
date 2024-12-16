@@ -6,7 +6,8 @@ export const Styles = StyleSheet.create({
       fontFamily: fonts.COMMON_REGULAR
     },  
     inputContainer: {
-        width: '100%',
+        position: 'relative',
+        // width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         // borderWidth: 1,

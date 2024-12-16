@@ -130,6 +130,7 @@ export default function HomePage({ navigation }) {
                 </View>
                 <ProductSmallCard
                     showProductsOnPress={showProductsOnPressShowAll}
+                    navigation={navigation}
                 />
                 <AdsCard
                     adsHeadingName={'TRENDING NOW'}
@@ -143,7 +144,7 @@ export default function HomePage({ navigation }) {
                     imageHeight={250}
                     showDescription={true}
                     showSecondRow={false}
-                    showProductsOnPress={showProductsOnPressShowAll}
+                    navigation={navigation}
                 />
             </ScrollView>
         </SafeAreaView >
