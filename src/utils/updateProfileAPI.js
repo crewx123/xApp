@@ -3,9 +3,9 @@ import axios from "axios";
 export const udpateProfileApi = async( setloading, newProfileData ) => {
     setloading(true);
     try {
-        const sendRequest = await axios.post(`http://192.168.255.56/user/userProfileUpdate`, newProfileData);
+        const sendRequest = await axios.post(`http://192.168.158.151:8080/user/userProfileUpdate`, newProfileData);
         const response = sendRequest.data;
-        const { success } = response
+        const { success } = response.data;
         if(success){
             return true;
         }

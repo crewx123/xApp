@@ -4,7 +4,7 @@ export const updateAddressApi = async( setIsLoading, updatedAddressInfo ) => {
     setIsLoading(true);
     try {
         console.log(updatedAddressInfo);
-        const sendRequest = await axios.put(`http://192.168.255.56:8080/users/addressUpdate`, updatedAddressInfo);
+        const sendRequest = await axios.put(`http://192.168.158.151:8080/users/addressUpdate`, updatedAddressInfo);
         console.log(sendRequest.data);
         return true;
     } catch (error) {

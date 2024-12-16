@@ -3,7 +3,7 @@ import axios from "axios";
 export const subSubCategoryApi = async( setResponseData, setLoader, setErrors ) => {
     setLoader(true);
     try {
-        const sendRequest = await axios.get(`http://192.168.255.56:8080/product/showSubSubCategory`);
+        const sendRequest = await axios.get(`http://192.168.158.151:8080/product/showSubSubCategory`);
         const response = sendRequest.data;
         setResponseData(response);
         console.log(response);

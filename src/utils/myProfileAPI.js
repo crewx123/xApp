@@ -3,7 +3,7 @@ import axios from "axios";
 export const myProfileApi = async(setUserProfile, setLoading) => {
     setLoading(true);
     try {
-        const sendRequest = await axios.get(`http://192.168.255.56:8080/users/userProfile`);
+        const sendRequest = await axios.get(`http://192.168.158.151:8080/users/userProfile`);
         const response = sendRequest.data.response;
         console.log(response);
         setUserProfile(response);

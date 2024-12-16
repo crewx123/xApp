@@ -45,13 +45,13 @@ export const Styles = StyleSheet.create({
     },
     categoryNameAndColorContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between', 
-        alignItems: 'center'
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 
     priceContainer: {
-        flexDirection: 'row', 
-        alignItems: 'center'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     shippingTypeContainer: {
         width: 75,
@@ -64,19 +64,22 @@ export const Styles = StyleSheet.create({
     sizeContainer: {
         flexDirection: 'column',
         padding: 12,
-        borderBottomWidth: 0.8, 
-        borderBottomColor: '#000'
+        borderBottomWidth: 0.8,
+        borderBottomColor: '#000',
     },
     highLights: {
         flexDirection: 'column',
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderBottomWidth: 0.8,
-        borderBottomColor: '#000'
+        borderBottomColor: '#000',
     },
     productSpecs: {
         flexDirection: 'column',
-        paddingBottom: 8
+        paddingBottom: 8,
+    },
+    moreRelaventProduct: {
+        flexDirection: 'column',
+        gap: 4,
     }
-
 });

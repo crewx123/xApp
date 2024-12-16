@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 export const loginApi = async (setLoader, loginCredentials, setErrors, setUserInformation) => {
   setLoader(true);
   try {
-    const sendRequest = await axios.post(`http://192.168.255.56:8080/users/login`, loginCredentials,
+    const sendRequest = await axios.post(`http://192.168.158.151:8080/users/login`, loginCredentials,
       {
         headers: {
           'Content-Type': 'application/json'

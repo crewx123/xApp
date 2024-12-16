@@ -4,7 +4,7 @@ export const registerApi = async (setLoader, registerData, setErrors) => {
   setLoader(true);
    
   try {
-    const sendRequest = await axios.post(`http://192.168.110.56:8080/users/register`, registerData, {
+    const sendRequest = await axios.post(`http://192.168.158.151:8080/users/register`, registerData, {
       headers: {
         'Content-Type': 'application/json',
       },

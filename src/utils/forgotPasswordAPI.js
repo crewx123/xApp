@@ -4,12 +4,12 @@ import { Alert } from "react-native";
 export const forgotPassword = async( setLoader, email ) => {
     setLoader(true);
     try {
-        const sendRequest = await axios.post(`http://192.168.110.56:8080/users/forgotPassword`, { email }, 
+        const sendRequest = await axios.post(`http://192.168.158.151:8080/users/forgotPassword`, { email },
             {
                 headers: {
                     "Content-Type": 'json/application'
                 },
-                timeout: 5000
+                timeout: 5000,
             }
         )
         const response = await sendRequest.data;
@@ -29,13 +29,13 @@ export const forgotPassword = async( setLoader, email ) => {
             }
             else if(status === 500){
                 const errors = error.response.data.errors;
-            errors.map(({ path, msg }, index))
+            // errors.map(({ path, msg }, index))
             }
             
         }
 
 
-        console.log(errorsList);
+        // console.log(errorsList);
     }finally{
         setLoader(false);
     }

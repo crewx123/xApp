@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 export const sendOTP_Api = async (setLoader, email, setErrors) => {
   setLoader(true);
   try {
-    const sendRequest = await axios.post(`http://192.168.110.56:8080/users/emailOTPSent`, { email }, {
+    const sendRequest = await axios.post(`http://192.168.158.151:8080/users/emailOTPSent`, { email }, {
       headers: {
         'Content-Type': 'application/json',
       },

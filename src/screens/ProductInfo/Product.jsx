@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, SafeAreaView, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Styles } from './style/ProductStyle';
@@ -9,6 +10,9 @@ import { productImg } from '../../theme/Images';
 const Product = ({ navigation }) => {
 
     const [listOfProductSpecsDropdown, setListOfProductSpecsDropdown] = useState([false, false, false, false, false]);
+    const handleOnChildPress = (e) => {
+        e.stopPropagation();
+    }
 
     return (
         <SafeAreaView style={Styles.productInfoMainContainer} >
@@ -38,7 +42,7 @@ const Product = ({ navigation }) => {
                     {
                         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (
                             <View key={index}>
-                                <Image source={productImg} style={Styles.eachColor} resizeMode='cover' />
+                                <Image source={productImg} style={Styles.eachColor} resizeMode="cover" />
                             </View>
                         ))
                     }
@@ -87,7 +91,7 @@ const Product = ({ navigation }) => {
                     {
                         ['Seamless one-piece upper provides maximum comfort', 'Lightly padded heel collar locks ankle in place', 'Flexible, cushioned midsole offers a smoother ride'].map((info, index) => (
                             <View key={index} style={{ flexDirection: 'row', gap: 4, alignItems: 'center' }}>
-                                <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>{`\u2022`}</Text>
+                                <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>{'\u2022'}</Text>
                                 <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>{info}</Text>
                             </View>
                         ))
@@ -97,78 +101,87 @@ const Product = ({ navigation }) => {
                     <TouchableOpacity style={{ paddingVertical: 12, borderBottomWidth: 0.8, borderBottomColor: '#000' }}
                         onPress={() => setListOfProductSpecsDropdown((prev) => {
                             const temp = [...prev];
-                            temp[0] = true;
+                            temp[0] = !temp[0];
                             return temp;
                         })}
+                        activeOpacity={1}
                     >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Details</Text>
-                            <FontAwesome name='plus' color='#000' />
+                            <FontAwesome name="plus" color="#000" />
                         </View>
 
                         {/* Problem in wrapping the content written inside it */}
                         {
                             listOfProductSpecsDropdown[0] &&
-                            <View style={{ paddingHorizontal: 12, paddingVertical: 16 }}>
-                                <View>
-                                    <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>Made to Go with the flow, our fan-fave sneaker keeps its signature breathable comfort while hitting the refresh button with a new elevated aesthetic and more springy support.</Text>
-                                </View>
-                                <View style={{ flexDirection: 'column', gap: 8, }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, borderWidth: 1, borderColor: 'red' }}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Best For:</Text>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>Warm weather, everyday wear, socks optional</Text>
+                            <TouchableWithoutFeedback onPress={handleOnChildPress}>
+                                <View style={{ paddingHorizontal: 12, paddingVertical: 16 }} >
+                                    <View>
+                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>Made to Go with the flow, our fan-fave sneaker keeps its signature breathable comfort while hitting the refresh button with a new elevated aesthetic and more springy support.</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, paddingRight: 12, borderWidth: 1, borderColor: 'red' }}>
-                                        <View>
-                                            <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Breezy Quality:</Text>
+                                    <View style={{ flexDirection: 'column', gap: 8 }}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                            <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>
+                                                Best For:<Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}> Warm weather, everyday wear, socks optional</Text>
+                                            </Text>
                                         </View>
-                                        <View style={{ marginRight: 12, borderWidth: 0.8, borderColor: 'green' }}>
-                                            <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}> Lightweight, breathable tree fiber in the upper </Text>
+                                        <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8, paddingRight: 12 }}>
+                                            <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Breezy Quality: <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}> Lightweight, breathable tree fiber in the upper whdgwh wdvhwdvgw whgdeyhw3g </Text></Text>
                                         </View>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingRight: 12 }}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Versatile Design:</Text>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 12, }}>Wear-with-everything style, great for travel</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, }}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Where It's Made:</Text>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}>Made in India</Text>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingRight: 12 }}>
+                                            <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>Versatile Design:<Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}> Wear-with-everything style, great for travel</Text></Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                            <Text style={{ ...Styles.commonTextStyle, fontWeight: 700, fontSize: 12 }}>
+                                                Where It's Made:<Text style={{ ...Styles.commonTextStyle, fontSize: 12 }}> Made in India</Text>
+                                            </Text>
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
+                            </TouchableWithoutFeedback>
                         }
                     </TouchableOpacity>
                     <View style={{ paddingVertical: 12, borderBottomWidth: 0.8, borderBottomColor: '#000' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Testing & Specs</Text>
                             <FontAwesome
-                                name='plus'
-                                color='#000'
+                                name="plus"
+                                color="#000"
                             />
                         </View>
                     </View>
                     <View style={{ paddingVertical: 12, borderBottomWidth: 0.8, borderBottomColor: '#000' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Sustainaibility</Text>
-                            <FontAwesome name='plus' color='#000' />
+                            <FontAwesome name="plus" color="#000" />
                         </View>
                     </View>
                     <View style={{ paddingVertical: 12, borderBottomWidth: 0.8, borderBottomColor: '#000' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Care Guide</Text>
-                            <FontAwesome name='plus' color='#000' />
+                            <FontAwesome name="plus" color="#000" />
                         </View>
                     </View>
                     <View style={{ paddingVertical: 12, borderBottomWidth: 0.8, borderBottomColor: '#000' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 12 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Shipping & Returns</Text>
-                            <FontAwesome name='plus' color='#000' />
+                            <FontAwesome name="plus" color="#000" />
+                        </View>
+                    </View>
+                </View>
+                <View style={{ paddingHorizontal: 12, paddingTop: 8 }}>
+                    <View style={Styles.moreRelaventProduct}>
+                        <View>
+                            <Text style={{ ...Styles.commonTextStyle, fontSize: 16, letterSpacing: 1 }}>You Might Also Like</Text>
+                        </View>
+                        <View>
+                            
                         </View>
                     </View>
                 </View>
             </ScrollView>
         </SafeAreaView >
-    )
-}
+    );
+};
 
 export default Product;

@@ -6,12 +6,13 @@ export const verifyOTP_Api = async (setLoader, email, otp, setErrors) => {
     console.log(email, otp);
     otp = parseInt(otp.join(''));
     console.log(otp);
-    const sendRequest = await axios.post(`http://192.168.110.56:8080/users/emailOTPVerify`, { email, otp  }, {
+    const sendRequest = await axios.post(`http://192.168.158.151:8080/users/emailOTPVerify`, { email, otp  }, {
       headers: {
         'Content-Type': 'application/json',
       },
-      responseType: 'json', 
-      timeout: 5000, 
+      responseType: 'json',
+      
+      timeout: 5000,
     });
     const response = sendRequest.data;
     console.log('Response:', response);

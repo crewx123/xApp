@@ -4,7 +4,7 @@ export const addAddressApi = async( setLoading, newAddressDetails ) => {
     setLoading(true);
     try {
         console.log(newAddressDetails);
-        const sendRequest = await axios.post(`http://192.168.255.56:8080/users/addressAdd`, newAddressDetails)
+        const sendRequest = await axios.post(`http://192.168.158.151:8080/users/addressAdd`, newAddressDetails)
         const response = sendRequest.data;
         console.log(response);
         return true;
