@@ -54,8 +54,8 @@ const Product = ({ navigation }) => {
                     <View style={Styles.categoryNameAndColorContainer}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                             <Text style={{ ...Styles.commonTextStyle }}>Category Name</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ ...Styles.commonTextStyle, fontSize: 17 }}>#</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                <Text style={{ ...Styles.commonTextStyle, fontSize: 17 }}>{'\u2022'}</Text>
                                 <Text style={{ ...Styles.commonTextStyle }}>5 Colors</Text>
                             </View>
                         </View>
@@ -169,13 +169,49 @@ const Product = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ paddingHorizontal: 12, paddingTop: 8 }}>
+                <View style={{ paddingHorizontal: 12, paddingTop: 8, paddingBottom: 8 }}>
                     <View style={Styles.moreRelaventProduct}>
                         <View>
                             <Text style={{ ...Styles.commonTextStyle, fontSize: 16, letterSpacing: 1 }}>You Might Also Like</Text>
                         </View>
                         <View>
-                            
+                            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(10, 10, 10, 0.9)', borderRadius: 100, paddingHorizontal: 4 }}>
+                                    <TouchableOpacity
+                                        style={{
+                                            borderRadius: 100,
+                                            paddingHorizontal: 16,
+                                            paddingVertical: 8,
+                                            // backgroundColor: showFourPressed ? 'grey' : 'transparent'
+                                            backgroundColor: 'grey',
+                                        }}
+                                        // onPressIn={() => {
+                                        //     if (!showFourPressed) {
+                                        //         tooglePressed(setShowFourPressed, true);
+                                        //         tooglePressed(setShowTwoPressed, false);
+                                        //     }
+                                        // }}
+                                    >
+                                        <Text style={{ ...Styles.commonTextStyle, color: '#fff', fontSize: 12 }}>Recommended</Text>
+                                    </TouchableOpacity >
+                                    <TouchableOpacity
+                                        style={{
+                                            borderRadius: 100,
+                                            paddingHorizontal: 16, paddingVertical: 12,
+                                            // backgroundColor: showTwoPressed ? 'grey' : 'transparent'
+                                            backgroundColor: 'transparent',
+                                        }}
+                                        // onPressIn={() => {
+                                        //     if (!showTwoPressed) {
+                                        //         tooglePressed(setShowTwoPressed, true);
+                                        //         tooglePressed(setShowFourPressed, false);
+                                        //     }
+                                        // }}
+                                    >
+                                        <Text style={{ ...Styles.commonTextStyle, color: '#fff', fontSize: 12 }}>Recently Viewed</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </View>
                     </View>
                 </View>
