@@ -1,4 +1,5 @@
 import React from 'react';
+import Share from 'react-native-share';
 // import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, SectionList, Image } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -28,6 +29,22 @@ const MyProfile = ({ navigation }) => {
         navigation.navigate('Orders');
     }
 
+    const handleShare = async () => {
+        const shareOptions = {
+            title: 'Amazing App', // This sets the title (for iOS)
+            subject: 'Amazing App',
+            message: 'Check out this amazing app! Download it here: https://example.com',
+            url: 'https://example.com', // Optional app link
+        };
+
+        try {
+            const result = await Share.open(shareOptions);
+            console.log('Share result:', result);
+        } catch (error) {
+            console.log('Error sharing:', error);
+        }
+    };
+
     const profileMenuList = [
         {
             heading: 'Your Information',
@@ -35,7 +52,7 @@ const MyProfile = ({ navigation }) => {
         },
         {
             heading: 'Other Information',
-            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', null], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', null]]
+            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', handleShare], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', null]]
         },
         {
             heading: 'Actions',

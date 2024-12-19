@@ -83,7 +83,6 @@ const Product = ({ navigation }) => {
                                     <Text style={{ ...Styles.commonTextStyle, color: '#000' }}>{size}</Text>
                                 </TouchableOpacity>
                             ))
-
                         }
                     </View>
                 </View>
