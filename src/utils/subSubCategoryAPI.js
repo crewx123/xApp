@@ -1,14 +1,13 @@
 import axios from "axios";
 
-export const subSubCategoryApi = async( setResponseData, setLoader, setErrors ) => {
+export const subSubCategoryApi = async( setResponseData, setLoader, setErrors, ipAddress ) => {
     setLoader(true);
+    console.log('IP Address through SubSubCategory', ipAddress);
     try {
-        const sendRequest = await axios.get(`http://192.168.158.151:8080/product/showSubSubCategory`);
+        const sendRequest = await axios.get(`http://${ipAddress}/product/showSubSubCategory`);
         const response = sendRequest.data;
         setResponseData(response);
-        console.log(response);
     } catch (error) {
-        console.error(error);
         if(error.code === 'ECONNABORTED'){
             setErrors({email: 'Request Timed  Out'});
         }

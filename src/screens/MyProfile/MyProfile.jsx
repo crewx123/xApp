@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Share from 'react-native-share';
 // import { useState, useEffect } from 'react';
@@ -19,15 +20,15 @@ const MyProfile = ({ navigation }) => {
 
     const onPressEditProfile = () => {
         navigation.navigate('UpdateProfile');
-    }
+    };
 
     const onPressAddress = () => {
-        navigation.navigate('Address')
-    }
+        navigation.navigate('Address');
+    };
 
     const onPressOrders = () => {
         navigation.navigate('Orders');
-    }
+    };
 
     const handleShare = async () => {
         const shareOptions = {
@@ -48,16 +49,16 @@ const MyProfile = ({ navigation }) => {
     const profileMenuList = [
         {
             heading: 'Your Information',
-            subMenuList: [['Edit Profile', 'user-edit', onPressEditProfile], ['Your Orders', 'box-open', onPressOrders], ['Notification', 'bell', null], ['Address', 'map-marker-alt', onPressAddress], ['GST Details', 'form', null]]
+            subMenuList: [['Edit Profile', 'user-edit', onPressEditProfile], ['Your Orders', 'box-open', onPressOrders], ['Notification', 'bell', null], ['Address', 'map-marker-alt', onPressAddress], ['GST Details', 'form', null]],
         },
         {
             heading: 'Other Information',
-            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', handleShare], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', null]]
+            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', handleShare], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', null]],
         },
         {
             heading: 'Actions',
-            subMenuList: [['Report a Problem', 'flag', null], ['Deactivate Account', 'blocked', null], ['Log out', 'logout', userLogoutApi]]
-        }
+            subMenuList: [['Report a Problem', 'flag', null], ['Deactivate Account', 'blocked', null], ['Log out', 'logout', userLogoutApi]],
+        },
     ];
 
     const gradientColor = ['#248', '#000'];
@@ -78,9 +79,9 @@ const MyProfile = ({ navigation }) => {
                     >
                         {
                             item[1] === 'blocked' ?
-                                <OctIcon name={item[1]} color='rgb(80, 80, 80)' size={12} /> :
-                                (item[1] === 'logout' || item[1] === 'form' || item[1] === 'infocircleo' || item[1] === 'sharealt') ? <AntIcon name={item[1]} color='rgb(80, 80, 80)' size={12} /> :
-                                    <FontAwesomeIcon name={item[1]} color='rgb(80, 80, 80)' size={12} />
+                                <OctIcon name={item[1]} color="rgb(80, 80, 80)" size={12} /> :
+                                (item[1] === 'logout' || item[1] === 'form' || item[1] === 'infocircleo' || item[1] === 'sharealt') ? <AntIcon name={item[1]} color="rgb(80, 80, 80)" size={12} /> :
+                                    <FontAwesomeIcon name={item[1]} color="rgb(80, 80, 80)" size={12} />
                         }
                     </TouchableOpacity>
                     <View>
@@ -89,12 +90,12 @@ const MyProfile = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
         </View>
-    )
+    );
     return (
         <SafeAreaView style={Styles.myProfileMainContainer}>
 
             <StatusBar
-                backgroundColor='#fff'
+                backgroundColor="#fff"
                 barStyle="dark-content"
             />
             <View style={Styles.myPorfileHeadingContainer}>
@@ -106,8 +107,8 @@ const MyProfile = ({ navigation }) => {
                     }}
                 >
                     <AntIcon
-                        name='left'
-                        color='#000'
+                        name="left"
+                        color="#000"
                         size={26}
                     />
                 </TouchableOpacity>
@@ -128,13 +129,13 @@ const MyProfile = ({ navigation }) => {
                 >
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 16 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: 75, height: 75, borderRadius: 100, backgroundColor: '#fff' }}>
-                            <Image source={userInformation.gender === 'male' ? maleAvatar : femaleAvatar} style={{ width: 54, height: 54 }} resizeMode='cover' />
+                            <Image source={userInformation.gender === 'male' ? maleAvatar : femaleAvatar} style={{ width: 54, height: 54 }} resizeMode="cover" />
                         </View>
                         <View style={{ flexDirection: 'column', paddingVertical: 12 }}>
                             <View>
                                 <View style={{ flexDirection: 'row', gap: 4 }}>
                                     <Text style={{ ...Styles.commonTextStyle, fontSize: 18, color: '#fff' }}>{userInformation.fullName}</Text>
-                                    {userInformation.e_verify && <MaterialIcon name='verified' color='rgb(0, 220, 0)' />}
+                                    {userInformation.e_verify && <MaterialIcon name="verified" color="rgb(0, 220, 0)" />}
                                 </View>
 
                                 <Text style={{ ...Styles.commonTextStyle, fontSize: 12, color: '#fff' }}>{userInformation.mobile}</Text>
@@ -156,10 +157,9 @@ const MyProfile = ({ navigation }) => {
                 )}
                 renderItem={renderSubMenuItemsList}
                 showsVerticalScrollIndicator={false}
-            >
-            </SectionList>
+             />
         </SafeAreaView >
-    )
-}
+    );
+};
 
 export default MyProfile;

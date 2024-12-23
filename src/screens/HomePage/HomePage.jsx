@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -9,12 +11,16 @@ import ProductSmallCard from '../../components/productSmallCard/ProductSmallCard
 import SearchBarMenu from '../../components/SearchBarMenu/SearchBarMenu';
 import AdsCard from '../../components/ProductAdsCard/ProductAdsCard';
 import AddToCart from '../../components/Common/AddToCart/AddToCart';
+import { useAuth } from '../../context/Auth/Auth';
 import { fonts } from '../../theme/Fonts';
 import { subSubCategoryApi } from '../../utils/subSubCategoryAPI';
 
 const { height } = Dimensions.get('window');
 
 export default function HomePage({ navigation }) {
+    const { userInformation } = useAuth();
+    const { ipAddress } = userInformation;
+    console.log(ipAddress);
 
     const [backgroundColor, setBackgroundColor] = useState('transparent');
     const [isMenuDrawerVisible, setIsMenuDrawerVisible] = useState(false);
@@ -45,7 +51,7 @@ export default function HomePage({ navigation }) {
 
     useEffect(() => {
         ToastAndroid.show("Welcome to the HomePage", ToastAndroid.SHORT);
-        subSubCategoryApi(setSubSubCategoryData, setCategoryLoading, setSubSubCategoryErrors);
+        subSubCategoryApi(setSubSubCategoryData, setCategoryLoading, setSubSubCategoryErrors, ipAddress);
     }, []);
 
     return (
@@ -75,9 +81,9 @@ export default function HomePage({ navigation }) {
                     >
                         < View style={{ flexDirection: 'column', gap: 4, paddingHorizontal: 20, paddingVertical: 8 }}>
                             {
-                                subSubCategoryData.length !== 0 && (subSubCategoryData.response).map(({ _id, sub_sub_category_name }, index) => (
+                                subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, name }, index) => (
                                     <TouchableOpacity key={_id} >
-                                        <Text style={{ color: '#fff', fontSize: 14, fontFamily: fonts.COMMON_REGULAR }}>{sub_sub_category_name}</Text>
+                                        <Text style={{ color: '#fff', fontSize: 14, fontFamily: fonts.COMMON_REGULAR }}>{name}</Text>
                                     </TouchableOpacity>
                                 ))
                             }
@@ -85,11 +91,11 @@ export default function HomePage({ navigation }) {
                         <View style={{ height: 200 }}>
                             <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false}>
                                 {
-                                    subSubCategoryData.length !== 0 && (subSubCategoryData.response).map(({ _id, images, sub_sub_category_name }, index) => (
+                                    subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, images, name }, index) => (
                                         index <= 5 && <View key={_id} style={{ position: 'relative' }} >
                                             <Image source={{ uri: `${subSubCategoryData.root}/${images}` }} style={{ width: 160, height: 200 }} resizeMode='cover' />
                                             <View style={{ position: 'absolute', bottom: 10, left: 7, transform: 'rotate(0deg)' }}>
-                                                <Text style={{ fontSize: 10, fontFamily: fonts.REGULAR, color: '#fff' }}>{sub_sub_category_name}</Text>
+                                                <Text style={{ fontSize: 10, fontFamily: fonts.REGULAR, color: '#fff' }}>{name}</Text>
                                             </View>
                                         </View>
                                     ))

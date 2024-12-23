@@ -1,17 +1,17 @@
-import axios from "axios";
-import { Alert } from "react-native";
+import axios from 'axios';
+import { Alert } from 'react-native';
 
-export const forgotPassword = async( setLoader, email ) => {
+export const forgotPassword = async( setLoader, email, ipAddress ) => {
     setLoader(true);
     try {
-        const sendRequest = await axios.post(`http://192.168.158.151:8080/users/forgotPassword`, { email },
+        const sendRequest = await axios.post(`http://${ipAddress}/users/forgotPassword`, { email },
             {
                 headers: {
-                    "Content-Type": 'json/application'
+                    'Content-Type': 'json/application',
                 },
                 timeout: 5000,
             }
-        )
+        );
         const response = await sendRequest.data;
         console.log(response);
         if(response.success){
@@ -31,7 +31,7 @@ export const forgotPassword = async( setLoader, email ) => {
                 const errors = error.response.data.errors;
             // errors.map(({ path, msg }, index))
             }
-            
+
         }
 
 
@@ -39,4 +39,4 @@ export const forgotPassword = async( setLoader, email ) => {
     }finally{
         setLoader(false);
     }
-}
+};

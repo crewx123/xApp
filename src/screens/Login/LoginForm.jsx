@@ -17,9 +17,9 @@ const LoginForm = ({ navigation }) => {
     };
 
     const [isLoginLoading, setIsLoginLoading] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberIsChecked, setRememberIsChecked] = useState(true)
+    const [email, setEmail] = useState('shiv143ak@gmail.com');
+    const [password, setPassword] = useState('@K143Solar');
+    const [rememberIsChecked, setRememberIsChecked] = useState(true);
     const [errors, setErrors] = useState({});
 
 
@@ -44,12 +44,12 @@ const LoginForm = ({ navigation }) => {
     };
 
     const handleLoginOnClick = () => {
-    console.log(email, password)
+    console.log(email, password);
         if (handleValidation()) {
             const loginCredentials = { email, password };
             userLoginApi(setIsLoginLoading, loginCredentials, setErrors);
         }
-    }
+    };
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -65,24 +65,24 @@ const LoginForm = ({ navigation }) => {
                 <View style={Styles.formContainer}>
 
                     <CustomInputField
-                        labelName='Email'
+                        labelName="Email"
                         name={email}
                         setName={setEmail}
-                        iconName='mail-outline'
-                        iconColor='#666'
-                        keyboardType='email-address'
-                        inputPlaceholder='Enter your mail'
+                        iconName="mail-outline"
+                        iconColor="#666"
+                        keyboardType="email-address"
+                        inputPlaceholder="Enter your mail"
                         errorName={errors.email}
                     />
 
                     <CustomInputField
-                        labelName='Password'
+                        labelName="Password"
                         name={password}
                         setName={setPassword}
-                        iconName='lock-closed-outline'
-                        iconColor='#666'
-                        inputType='password'
-                        inputPlaceholder='Enter your password'
+                        iconName="lock-closed-outline"
+                        iconColor="#666"
+                        inputType="password"
+                        inputPlaceholder="Enter your password"
                         errorName={errors.password}
                     />
 
@@ -101,13 +101,13 @@ const LoginForm = ({ navigation }) => {
 
                     <CustomButton
                         gradientColor={gradientColors.gradient2}
-                        name='Sign In'
-                        btnNameColor='#fff'
+                        name="Sign In"
+                        btnNameColor="#fff"
                         onPress={handleLoginOnClick}
                         isLoading={isLoginLoading}
                     />
                 </View>
-                <View style={{ flex: 1, paddingBottom: 20, }}>
+                <View style={{ flex: 1, paddingBottom: 20 }}>
                     <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', gap: 5 }}>
                             <Text style={Styles.textCommon}>Don't have an account?</Text>
@@ -117,7 +117,7 @@ const LoginForm = ({ navigation }) => {
                 </View>
             </View>
         </SafeAreaView >
-    )
-}
+    );
+};
 
 export default LoginForm;

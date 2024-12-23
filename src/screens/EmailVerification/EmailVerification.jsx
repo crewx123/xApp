@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -6,10 +7,12 @@ import CustomButton from '../../components/CustomButton/Button';
 import OtpVerification from '../../components/OtpVerification/OtpVerification';
 import { verifyOTP_Api } from '../../utils/verifyOtpAPI';
 import { Styles } from './style/EmailVerificationStyle';
+import { useAuth } from '../../context/Auth/Auth';
 // import GradientText from '../../components/GradientText/GradientText';
 
 const EmailVerification = ({ email, otp, setOtp, setOtpVerificationStatus }) => {
-
+    const { userInformation } = useAuth();
+    const { ipAddress } = userInformation;
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
@@ -31,7 +34,7 @@ const EmailVerification = ({ email, otp, setOtp, setOtpVerificationStatus }) => 
     }, []);
 
     const handleVerifyOtp = () => {
-        verifyOTP_Api(setIsLoading, email, otp, setErrors).then((status) => {
+        verifyOTP_Api(setIsLoading, email, otp, setErrors, ipAddress).then((status) => {
             if (status) {
                 console.log('hello');
                 setOtpVerificationStatus((prev) => ({ ...prev, isEmailVerified: true }))

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -19,8 +20,8 @@ const AllProductsList = () => {
     const [showTwoPressed, setShowTwoPressed] = useState(true);
     const [showFourPressed, setShowFourPressed] = useState(false);
     const tooglePressed = (setReverse, status) => {
-        setReverse(status);;
-    }
+        setReverse(status);
+    };
 
     return (
         <View style={Styles.productListContainer}>
@@ -29,7 +30,7 @@ const AllProductsList = () => {
                 bounces={false}
             >
                 <View style={Styles.eachProductImageContainer}>
-                    <Image source={poloImg} style={Styles.eachProductImage} resizeMode='cover' />
+                    <Image source={poloImg} style={Styles.eachProductImage} resizeMode="cover" />
                 </View>
                 {
                     <View style={Styles.showAllProductContainer}>
@@ -55,7 +56,7 @@ const AllProductsList = () => {
                                 }
                             }}
                         >
-                            <MaterialIcon name='grid-4x4' color={showFourPressed ? '#fff' : 'grey'} size={18} />
+                            <MaterialIcon name="grid-4x4" color={showFourPressed ? '#fff' : 'grey'} size={18} />
                         </TouchableOpacity >
                         <TouchableOpacity
                             style={{ borderRadius: 50, paddingHorizontal: 16, paddingVertical: 12, backgroundColor: showTwoPressed ? 'grey' : 'transparent' }}
@@ -66,16 +67,16 @@ const AllProductsList = () => {
                                 }
                             }}
                         >
-                            <MaterialIcon name='grid-view' color={showTwoPressed ? '#fff' : 'grey '} size={18} />
+                            <MaterialIcon name="grid-view" color={showTwoPressed ? '#fff' : 'grey '} size={18} />
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: 'rgba(10, 10, 10, 0.9)', borderRadius: 50, padding: 16 }}>
                         <TouchableOpacity
                             onPressIn={() => {
-                                tooglePressed(setFilterModalVisible, true)
+                                tooglePressed(setFilterModalVisible, true);
                             }}
                         >
-                            <MaterialIcon name='filter-list-alt' color='#fff' size={22} />
+                            <MaterialIcon name="filter-list-alt" color="#fff" size={22} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -85,7 +86,7 @@ const AllProductsList = () => {
                 setFilterModalVisible={setFilterModalVisible}
             />}
         </View>
-    )
-}
+    );
+};
 
 export default AllProductsList;

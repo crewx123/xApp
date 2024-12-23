@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
 import { Styles } from './Style/RegistrationStyle';
@@ -8,16 +9,22 @@ import OtpVerificationPage from '../../screens/EmailVerification/EmailVerificati
 import { SafeAreaView, View, Text } from 'react-native';
 import { registerApi } from '../../utils/registerAPI';
 import { sendOTP_Api } from '../../utils/sendOtpAPI';
+import { showAddressApi } from '../../utils/showAddressAPI';
+import { storeToken } from '../../utils/token';
+import { useAuth } from '../../context/Auth/Auth';
 
 
 const Registration = ({ navigation }) => {
 
+    const { userInformation, setUserInformation } = useAuth();
+    const { ipAddress } = userInformation;
+
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
-    }
+    };
 
-    const subHeadingContent = "Enter your email id for the verification of your email"
+    const subHeadingContent = 'Enter your email id for the verification of your email';
 
     const [isLoading, setIsLoading] = useState(false);
     const [otpVerificationProcess, setOtpVerificationProcess] = useState({
@@ -47,19 +54,19 @@ const Registration = ({ navigation }) => {
         }
         setErrors(errors);
         return valid;
-    }
+    };
 
 
     const handleEmailVerification = () => {
         if (handleEmailValidation()) {
-            sendOTP_Api(setIsLoading, email, setErrors).then((status) => {
+            sendOTP_Api(setIsLoading, email, setErrors, ipAddress).then((status) => {
                 console.log(status);
                 if (status) {
                     setOtpVerificationProcess((previous) => ({ ...previous, isEmailVerified: false, isOtpSent: true }));
                 }
             });
         }
-    }
+    };
 
     const handleValidation = () => {
         let valid = true;
@@ -72,12 +79,12 @@ const Registration = ({ navigation }) => {
 
         if (!mobile) {
             errors.mobile = 'Mobile is required';
-            valid = false
+            valid = false;
         }
 
         if (!gender) {
             errors.gender = 'Gender is Required';
-            valid = false
+            valid = false;
         }
         if (!email) {
             errors.email = 'Email is required';
@@ -105,20 +112,30 @@ const Registration = ({ navigation }) => {
         if (handleValidation()) {
             const sendData = { fullName, mobile, email, gender, password };
             console.log(sendData);
-            registerApi(setIsLoading, sendData, setErrors).then((status) => {
-                if (status) {
-                    // Alert.alert("User Regitered Successfully");
-                    navigation.navigate('Dashboard');
+            registerApi(setIsLoading, sendData, setErrors, ipAddress).then((response) => {
+                if (response) {
+                    const { refreshToken } = response;
+                    storeToken('token', refreshToken);
+                    storeToken('userProfileData', JSON.stringify(response.userData));
+                    setUserInformation((prev) => ({...prev, ...response.userData}));
+                    showAddressApi(setIsLoading, userInformation.ipAddress).then((result) => {
+                        if (result) {
+                            console.log(result);
+                            storeToken('userAddressInfo', JSON.stringify(result));
+                            setUserInformation((prev) => ({ ...prev, userAddressInfo: result }));
+                            navigation.navigate('Dashboard');
+                        }
+                    });
                 }
             });
         }
-    }
+    };
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
             {!otpVerificationProcess.isOtpSent &&
                 <EmailVerificationPage
-                    heading='Email Verification'
+                    heading="Email Verification"
                     subHeading={subHeadingContent}
                     value={email}
                     setValue={setEmail}
@@ -149,72 +166,72 @@ const Registration = ({ navigation }) => {
                 </View>
                 <View style={Styles.formContainer}>
                     <CustomInputField
-                        labelName='Name'
+                        labelName="Name"
                         name={fullName}
                         setName={setFullName}
-                        iconName='person-outline'
-                        iconColor='#666'
-                        inputPlaceholder='Enter your name'
+                        iconName="person-outline"
+                        iconColor="#666"
+                        inputPlaceholder="Enter your name"
                         errorName={errors.fullName}
                     />
 
                     <CustomInputField
-                        labelName='Email'
+                        labelName="Email"
                         name={email}
                         setName={setEmail}
-                        iconName='mail-outline'
-                        iconColor='#666'
-                        inputType='email-address'
-                        inputPlaceholder='Enter your mail'
+                        iconName="mail-outline"
+                        iconColor="#666"
+                        inputType="email-address"
+                        inputPlaceholder="Enter your mail"
                         errorName={errors.email}
                     />
 
                     <CustomInputField
-                        labelName='Mobile'
+                        labelName="Mobile"
                         name={mobile}
                         setName={setMobile}
-                        iconName='call-outline'
-                        inputType='phone-pad'
-                        iconColor='#666'
-                        inputPlaceholder='Enter your mobile'
+                        iconName="call-outline"
+                        inputType="phone-pad"
+                        iconColor="#666"
+                        inputPlaceholder="Enter your mobile"
                         maxInputSize={10}
                         errorName={errors.mobile}
                     />
 
                     <CustomInputField
-                        labelName='Gender'
+                        labelName="Gender"
                         name={gender}
                         setName={setGender}
-                        iconName='male-female-outline'
-                        iconColor='#666'
-                        inputType='picker'
-                        inputPlaceholder='Select your gender'
+                        iconName="male-female-outline"
+                        iconColor="#666"
+                        inputType="picker"
+                        inputPlaceholder="Select your gender"
                         pickerList={pickerList}
                         errorName={errors.gender}
                     />
 
                     <CustomInputField
-                        labelName='Password'
+                        labelName="Password"
                         name={password}
                         setName={setPassword}
-                        iconName='lock-closed-outline'
-                        iconColor='#666'
-                        inputType='password'
-                        inputPlaceholder='Enter your password'
+                        iconName="lock-closed-outline"
+                        iconColor="#666"
+                        inputType="password"
+                        inputPlaceholder="Enter your password"
                         errorName={errors.password}
                     />
 
                     <CustomButton
                         gradientColor={gradientColors.gradient2}
-                        name='Sign Up'
-                        btnNameColor='#fff'
+                        name="Sign Up"
+                        btnNameColor="#fff"
                         onPress={handleOnSubmitRegisterForm}
                     />
                 </View>
                 {submitRegisterClicked && errors.length !== 0 && <View><Text style={{ color: 'red', fontStyle: 'italic' }}>{errors.status}</Text></View>}
             </View>}
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Registration;

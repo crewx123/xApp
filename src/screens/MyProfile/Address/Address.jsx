@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar, ToastAndroid } from 'react-native';
@@ -16,7 +17,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const Address = ({ navigation }) => {
 
     const { userInformation, setUserInformation } = useAuth();
-    console.log(userInformation.userAddressInfo);
+    // console.log(userInformation.userAddressInfo);
     const [savedAddresses, setSavedAddresses] = useState(userInformation.userAddressInfo);
 
     useEffect(() => {
@@ -28,34 +29,34 @@ const Address = ({ navigation }) => {
     const onClickEditAddressBtn = (index, _id) => {
         // setEditAddressBtnClickedIndex((prev) => ({ ...prev, btnClicked: true, btnClickedIndex: index }));
         navigation.navigate('NewAddress', { data: { addressId: _id, ...savedAddresses[index] } });
-    }
+    };
 
     const onPressAddNewAddress = () => {
         navigation.navigate('NewAddress', { data: null });
-    }
+    };
 
     const onPressDeleteAddressBtn = (_id) => {
-        deleteAddressApi(setIsLoading, _id).then((status) => {
+        deleteAddressApi(setIsLoading, _id, userInformation.ipAddress).then((status) => {
             if (status) {
-                showAddressApi(setIsLoading).then((result) => {
+                showAddressApi(setIsLoading, userInformation.ipAddress).then((result) => {
                     if (result) {
                         setSavedAddresses(result);
                         setUserInformation((prev) => ({ ...prev, userAddressInfo: result }));
                         storeToken('userAddressInfo', JSON.stringify(result));
                         navigation.goBack();
-                        ToastAndroid.show("Address Deleted Successfully", ToastAndroid.SHORT);
+                        ToastAndroid.show('Address Deleted Successfully', ToastAndroid.SHORT);
                     }
                 });
             }
             else {
-                ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+                ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
             }
         });
-    }
+    };
     return (
         <SafeAreaView style={Styles.myAddressMainContainer}>
             <StatusBar
-                backgroundColor='#fff'
+                backgroundColor="#fff"
                 barStyle="dark-content"
             />
             <View style={Styles.myAddressHeadingContainer}>
@@ -67,8 +68,8 @@ const Address = ({ navigation }) => {
                     }}
                 >
                     <AntIcon
-                        name='left'
-                        color='#000'
+                        name="left"
+                        color="#000"
                         size={26}
                     />
                 </TouchableOpacity>
@@ -78,7 +79,7 @@ const Address = ({ navigation }) => {
             </View>
             <View style={{ paddingTop: 12 }}>
                 <TouchableOpacity style={Styles.newAddressCard} onPress={onPressAddNewAddress}>
-                    <FontAwesome name='plus' color='#000' size={20} />
+                    <FontAwesome name="plus" color="#000" size={20} />
                     <View style={{ marginTop: -2 }}>
                         <Text style={{ ...Styles.commonTextStyle, fontSize: 18 }}>Add a new address</Text>
                     </View>
@@ -98,7 +99,7 @@ const Address = ({ navigation }) => {
                                 <View key={_id} style={Styles.eachAddressContainer}>
                                     {/* {console.log(savedAddresses[0]['_id'], fullName, addressType, phone, address)} */}
                                     <View style={Styles.nameHeadingContainer}>
-                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 20, }}>
+                                        <Text style={{ ...Styles.commonTextStyle, fontSize: 20 }}>
                                             {fullName}
                                         </Text>
                                         <LinearGradient
@@ -117,15 +118,15 @@ const Address = ({ navigation }) => {
                                         <Text style={{ ...Styles.commonTextStyle, fontSize: 14 }}>{address?.join(', ')}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 5 }}>
-                                        <EntypoIcon name='old-phone' color='#000' />
+                                        <EntypoIcon name="old-phone" color="#000" />
                                         <Text style={{ ...Styles.commonTextStyle, fontSize: 15 }}>{phone}</Text>
                                     </View>
                                     <View style={{ position: 'absolute', right: 8, top: 8 }}>
                                         <TouchableOpacity onPress={() => onPressDeleteAddressBtn(_id)}>
-                                            <MaterialIcon name='delete' size={20} color='rgb(240, 0, 0)' />
+                                            <MaterialIcon name="delete" size={20} color="rgb(240, 0, 0)" />
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => onClickEditAddressBtn(index, _id)}>
-                                            <MaterialCommunityIcon name='store-edit' size={20} color='#238' />
+                                            <MaterialCommunityIcon name="store-edit" size={20} color="#238" />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -135,7 +136,7 @@ const Address = ({ navigation }) => {
                 </ScrollView>
             </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Address;

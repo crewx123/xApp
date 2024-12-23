@@ -13,36 +13,36 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [isAddressLoading, setIsAddressLoading] = useState(false);
     const [userInformation, setUserInformation] = useState({
-        ipAddress: '192.168.255.56:8080',
+        ipAddress: '192.168.142.151:8080',
     });
 
     const navigationRef = useNavigationContainerRef();
 
     const userLoginApi = (setLoader, loginCredentials, setErrors) => {
-        loginApi(setLoader, loginCredentials, setErrors, setUserInformation).then((status) => {
+        loginApi(setLoader, loginCredentials, setErrors, setUserInformation, userInformation.ipAddress).then((status) => {
             if (status) {
-                showAddressApi(setIsAddressLoading).then((result) => {
+                showAddressApi(setIsAddressLoading, userInformation.ipAddress).then((result) => {
                     if (result) {
                         console.log(result);
-                        storeToken("userAddressInfo", JSON.stringify(result));
-                        setUserInformation((prev) => ({ ...prev, userAddressInfo: result }))
+                        storeToken('userAddressInfo', JSON.stringify(result));
+                        setUserInformation((prev) => ({ ...prev, userAddressInfo: result }));
                         navigationRef.navigate('Dashboard');
                     }
                 });
             }
         });
-    }
+    };
 
     const userLogoutApi = () => {
-        logoutApi().then((status) => {
+        logoutApi(userInformation.ipAddress).then((status) => {
             if (status) {
                 removeToken();
                 navigationRef.navigate('Login Welcome');
             }
         });
-    }
+    };
 
-    const value = { userInformation, setUserInformation, userLoginApi, userLogoutApi }
+    const value = { userInformation, setUserInformation, userLoginApi, userLogoutApi };
 
     return (
         <AuthContext.Provider value={value}>
@@ -50,5 +50,5 @@ export const AuthProvider = ({ children }) => {
                 {children}
             </NavigationContainer>
         </AuthContext.Provider>
-    )
-}
+    );
+};

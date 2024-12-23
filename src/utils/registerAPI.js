@@ -1,20 +1,20 @@
 import axios from "axios";
 
-export const registerApi = async (setLoader, registerData, setErrors) => {
+export const registerApi = async (setLoader, registerData, setErrors, ipAddress) => {
   setLoader(true);
    
   try {
-    const sendRequest = await axios.post(`http://192.168.158.151:8080/users/register`, registerData, {
+    const sendRequest = await axios.post(`http://${ipAddress}/users/register`, registerData, {
       headers: {
         'Content-Type': 'application/json',
       },
-      responseType: 'json', 
+      responseType: 'json',
     });
     const response = sendRequest.data; 
     console.log('Response:', response);
     if(response.success){
       setErrors('');
-      return true;
+      return response;
     }
 
   } catch (error) {
@@ -50,7 +50,6 @@ export const registerApi = async (setLoader, registerData, setErrors) => {
     //   console.log('Error Message:', error.message);
       setErrors({ status: error.message || 'Registration Failed, try again' });
     }
-
     return false;
   } finally {
     setLoader(false);
