@@ -118,14 +118,9 @@ const Registration = ({ navigation }) => {
                     storeToken('token', refreshToken);
                     storeToken('userProfileData', JSON.stringify(response.userData));
                     setUserInformation((prev) => ({...prev, ...response.userData}));
-                    showAddressApi(setIsLoading, userInformation.ipAddress).then((result) => {
-                        if (result) {
-                            console.log(result);
-                            storeToken('userAddressInfo', JSON.stringify(result));
-                            setUserInformation((prev) => ({ ...prev, userAddressInfo: result }));
-                            navigation.navigate('Dashboard');
-                        }
-                    });
+                    storeToken('userAddressInfo', JSON.stringify([]));
+                    setUserInformation((prev) => ({ ...prev, userAddressInfo: [] }));
+                    navigation.navigate('Dashboard');
                 }
             });
         }

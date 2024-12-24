@@ -34,9 +34,9 @@ export const Styles = StyleSheet.create({
         position: 'relative'
     },
     eachSubCategoryNameContainer:{
-        position: 'absolute', 
-        bottom: 64, 
-        left: 24, 
+        position: 'absolute',
+        bottom: 64,
+        left: 24,
         right: 24
     },
     subCatergoryName: {

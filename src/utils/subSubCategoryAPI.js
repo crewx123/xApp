@@ -6,8 +6,10 @@ export const subSubCategoryApi = async( setResponseData, setLoader, setErrors, i
     try {
         const sendRequest = await axios.get(`http://${ipAddress}/product/showSubSubCategory`);
         const response = sendRequest.data;
+        console.log("Hello", response);
         setResponseData(response);
     } catch (error) {
+        console.log(JSON.stringify(error));
         if(error.code === 'ECONNABORTED'){
             setErrors({email: 'Request Timed  Out'});
         }

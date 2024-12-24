@@ -20,7 +20,6 @@ const { height } = Dimensions.get('window');
 export default function HomePage({ navigation }) {
     const { userInformation } = useAuth();
     const { ipAddress } = userInformation;
-    console.log(ipAddress);
 
     const [backgroundColor, setBackgroundColor] = useState('transparent');
     const [isMenuDrawerVisible, setIsMenuDrawerVisible] = useState(false);
@@ -43,14 +42,14 @@ export default function HomePage({ navigation }) {
 
     const showProductsOnPressShowAll = () => {
         navigation.navigate('Products');
-    }
+    };
 
     const showMyProfileOnPress = () => {
         navigation.navigate('Profile');
-    }
+    };
 
     useEffect(() => {
-        ToastAndroid.show("Welcome to the HomePage", ToastAndroid.SHORT);
+        ToastAndroid.show('Welcome to the HomePage', ToastAndroid.SHORT);
         subSubCategoryApi(setSubSubCategoryData, setCategoryLoading, setSubSubCategoryErrors, ipAddress);
     }, []);
 
@@ -68,7 +67,7 @@ export default function HomePage({ navigation }) {
                 handleOnPressMyProfile={showMyProfileOnPress}
             />
 
-            <ModelDrawer
+            {isMenuDrawerVisible && <ModelDrawer
                 isDrawerVisible={isMenuDrawerVisible}
                 setIsDrawerVisible={setIsMenuDrawerVisible}
             >
@@ -93,7 +92,7 @@ export default function HomePage({ navigation }) {
                                 {
                                     subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, images, name }, index) => (
                                         index <= 5 && <View key={_id} style={{ position: 'relative' }} >
-                                            <Image source={{ uri: `${subSubCategoryData.root}/${images}` }} style={{ width: 160, height: 200 }} resizeMode='cover' />
+                                            <Image source={{ uri: `${subSubCategoryData.root}/${images}` }} style={{ width: 160, height: 200 }} resizeMode="cover" />
                                             <View style={{ position: 'absolute', bottom: 10, left: 7, transform: 'rotate(0deg)' }}>
                                                 <Text style={{ fontSize: 10, fontFamily: fonts.REGULAR, color: '#fff' }}>{name}</Text>
                                             </View>
@@ -104,17 +103,17 @@ export default function HomePage({ navigation }) {
                         </View>
                     </View>
                 </View>
-            </ModelDrawer >
+            </ModelDrawer >}
 
-            <SearchBarMenu
+            {isSearchBarDrawerVisible && <SearchBarMenu
                 isDrawerVisible={isSearchBarDrawerVisible}
                 setIsDrawerVisible={setIsSearchBarDrawerVisible}
-            />
+            />}
 
-            <AddToCart
+            {isAddToCartDrawerVisible && <AddToCart
                 isDrawerVisible={isAddToCartDrawerVisible}
                 setIsDrawerVisible={setIsAddToCartDrawerVisible}
-            />
+            />}
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -137,20 +136,25 @@ export default function HomePage({ navigation }) {
                 <ProductSmallCard
                     showProductsOnPress={showProductsOnPressShowAll}
                     navigation={navigation}
+                    isLoading={isCategoryLoading}
+                    loaderTitleSize={12}
                 />
                 <AdsCard
                     adsHeadingName={'TRENDING NOW'}
                     tredingProductList={subSubCategoryData}
                     onPress={showProductsOnPressShowAll}
+                    isLoading={isCategoryLoading}
                 />
                 <ProductSmallCard
-                    topHeadingName='Shop'
-                    topSubHeadingName='Best Sellers'
+                    topHeadingName="Shop"
+                    topSubHeadingName="Best Sellers"
                     imageWidth={175}
                     imageHeight={250}
                     showDescription={true}
                     showSecondRow={false}
                     navigation={navigation}
+                    isLoading={isCategoryLoading}
+                    loaderTitleSize={14}
                 />
             </ScrollView>
         </SafeAreaView >
@@ -165,7 +169,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         position: 'relative',
         height: height,
-        backgroundColor: '#000'
+        backgroundColor: '#000',
     },
     descriptionContainer: {
         flexDirection: 'column',
