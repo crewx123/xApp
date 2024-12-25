@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Share from 'react-native-share';
+// import Share from 'react-native-share';
 // import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, SectionList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, SectionList, Image, Share } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import OctIcon from 'react-native-vector-icons/Octicons';
@@ -31,18 +31,25 @@ const MyProfile = ({ navigation }) => {
     };
 
     const handleShare = async () => {
-        const shareOptions = {
-            title: 'Amazing App', // This sets the title (for iOS)
-            subject: 'Amazing App',
-            message: 'Check out this amazing app! Download it here: https://example.com',
-            url: 'https://example.com', // Optional app link
-        };
-
         try {
-            const result = await Share.open(shareOptions);
-            console.log('Share result:', result);
+            const result = await Share.share({
+                message: 'Check out this amazing app! https://example.com',
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // Shared with specific activity
+                    console.log('Shared via:', result.activityType);
+                } else {
+                    // Shared successfully
+                    console.log('Share successful');
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // Dismissed
+                console.log('Share dismissed');
+            }
         } catch (error) {
-            console.log('Error sharing:', error);
+            console.error('Error sharing content:', error.message);
         }
     };
 
@@ -157,7 +164,7 @@ const MyProfile = ({ navigation }) => {
                 )}
                 renderItem={renderSubMenuItemsList}
                 showsVerticalScrollIndicator={false}
-             />
+            />
         </SafeAreaView >
     );
 };
