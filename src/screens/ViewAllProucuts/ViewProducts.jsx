@@ -37,7 +37,8 @@ const AllProductsList = () => {
                         <UnitProduct
                             gridOfTwo={showTwoPressed}
                             imageWidth={showTwoPressed ? width / 2.25 : width / 4.6}
-                            imageHeight={showTwoPressed ? 232 : 110}
+                            // imageHeight={showTwoPressed ? 232 : 110}6x
+                            imageHeight={ showTwoPressed ? (5 / 4) * (width / 2.25) : (6 / 5) * (width / 4.6) }
                             showDescription={showTwoPressed ? true : false}
                             descriptionColor={'#000'}
                         />

@@ -56,16 +56,19 @@ export default function HomePage({ navigation }) {
     return (
         <SafeAreaView style={styles.container} >
             <StatusBar
+                translucent={false}
                 barStyle="light-content"
                 backgroundColor="#000"
             />
-            <NavBar
-                BackgroundColor={backgroundColor}
-                setIsMenuDrawerVisible={setIsMenuDrawerVisible}
-                setIsSearchBarDrawerVisible={setIsSearchBarDrawerVisible}
-                setIsAddToCartDrawerVisible={setIsAddToCartDrawerVisible}
-                handleOnPressMyProfile={showMyProfileOnPress}
-            />
+            <View>
+                <NavBar
+                    BackgroundColor={backgroundColor}
+                    setIsMenuDrawerVisible={setIsMenuDrawerVisible}
+                    setIsSearchBarDrawerVisible={setIsSearchBarDrawerVisible}
+                    setIsAddToCartDrawerVisible={setIsAddToCartDrawerVisible}
+                    handleOnPressMyProfile={showMyProfileOnPress}
+                />
+            </View>
 
             {isMenuDrawerVisible && <ModelDrawer
                 isDrawerVisible={isMenuDrawerVisible}

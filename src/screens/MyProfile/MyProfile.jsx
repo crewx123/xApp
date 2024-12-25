@@ -102,6 +102,7 @@ const MyProfile = ({ navigation }) => {
         <SafeAreaView style={Styles.myProfileMainContainer}>
 
             <StatusBar
+                translucent={false}
                 backgroundColor="#fff"
                 barStyle="dark-content"
             />

@@ -6,7 +6,7 @@ import CustomButton from '../../components/CustomButton/Button';
 import CustomInputField from '../../components/CustomInput/InputField';
 import EmailVerificationPage from '../../screens/ForgotPassword/ForgotPassword';
 import OtpVerificationPage from '../../screens/EmailVerification/EmailVerification';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, StatusBar } from 'react-native';
 import { registerApi } from '../../utils/registerAPI';
 import { sendOTP_Api } from '../../utils/sendOtpAPI';
 import { showAddressApi } from '../../utils/showAddressAPI';
@@ -128,6 +128,10 @@ const Registration = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor="#fff"
+            />
             {!otpVerificationProcess.isOtpSent &&
                 <EmailVerificationPage
                     heading="Email Verification"

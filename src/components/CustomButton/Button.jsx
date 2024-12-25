@@ -4,15 +4,16 @@ import { Styles } from './style/ButtonStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Button = ({ name, btnNameColor, onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor, isLoading = false }) => {
+const Button = ({ name, btnNameColor, btnWidth = '100%', onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor, isLoading = false }) => {
     return (
-        <View style={Styles.buttonContainer}>
+        <View style={{...Styles.buttonContainer, width: btnWidth, borderRadius: 5 }}>
             <Pressable
                 onPress={onPress}
                 android_ripple={{ color: 'rgba(255, 255, 255, 0.3)' }} // Ripple effect color
                 style={({ pressed }) => [
                     {
                         opacity: pressed ? 0.8 : 1, // Change opacity on press
+                        borderRadius: 5,
                     },
                 ]}
             >

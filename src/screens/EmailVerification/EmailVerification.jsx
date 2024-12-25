@@ -2,10 +2,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
+import { View, SafeAreaView, Text, StatusBar, ToastAndroid } from 'react-native';
 import CustomButton from '../../components/CustomButton/Button';
 import OtpVerification from '../../components/OtpVerification/OtpVerification';
 import { verifyOTP_Api } from '../../utils/verifyOtpAPI';
+import { sendOTP_Api } from '../../utils/sendOtpAPI';
 import { Styles } from './style/EmailVerificationStyle';
 import { useAuth } from '../../context/Auth/Auth';
 // import GradientText from '../../components/GradientText/GradientText';
@@ -37,10 +38,28 @@ const EmailVerification = ({ email, otp, setOtp, setOtpVerificationStatus }) => 
         verifyOTP_Api(setIsLoading, email, otp, setErrors, ipAddress).then((status) => {
             if (status) {
                 console.log('hello');
-                setOtpVerificationStatus((prev) => ({ ...prev, isEmailVerified: true }))
+                setOtpVerificationStatus((prev) => ({ ...prev, isEmailVerified: true }));
             }
         });
     }
+
+    const ResendOtpToEmail = () => {
+        if (timeCountDown === 0) {
+            sendOTP_Api(setIsLoading, email, setErrors, ipAddress).then((status) => {
+                console.log('OTP Sent succesfully', status);
+                if (status) {
+                     ToastAndroid.show('OTP Sent Sucessfully', ToastAndroid.SHORT);
+                }
+                else{
+                    ToastAndroid.show('Try after sometime', ToastAndroid.SHORT);
+                }
+            });
+            setTimeCountDown(59);
+        }
+        else{
+            ToastAndroid.show(`Resend after ${timeCountDown} seconds`, ToastAndroid.SHORT);
+        }
+    };
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
@@ -63,9 +82,9 @@ const EmailVerification = ({ email, otp, setOtp, setOtpVerificationStatus }) => 
                         />
                         <View style={Styles.resendOtpTextContainer}>
                             <Text style={Styles.commonTextFont}>Didn't receive the OTP?</Text>
-                            <Text style={{ ...Styles.commonTextFont, ...Styles.resendOtpText, fontStyle: 'italic' }} onPress={() => { if (timeCountDown === 0) { console.log('succesfull'); setTimeCountDown(59); } }}>Resend</Text>
-                            <Text>OTP in</Text>
-                            <Text style={{ color: '#fff', fontStyle: 'italic' }}>{timeCountDown >= 10 ? timeCountDown : `0${timeCountDown}`} Seconds</Text>
+                            <Text style={{ ...Styles.commonTextFont, ...Styles.resendOtpText, fontStyle: 'italic' }} onPress={ResendOtpToEmail}>Resend</Text>
+                            <Text style={{ ...Styles.commonTextFont }}>OTP in</Text>
+                            <Text style={{ color: '#161D23', fontStyle: 'italic' }}>{timeCountDown >= 10 ? timeCountDown : `0${timeCountDown}`} Seconds</Text>
                         </View>
                     </View>
                     <View>

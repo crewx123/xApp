@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Styles } from './style/ForgotPasswordStyle';
 import CustomInputField from '../../components/CustomInput/InputField';
 import CustomButton from '../../components/CustomButton/Button';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, StatusBar } from 'react-native';
 
 
 const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, buttonColor, onPress = null, isLoading = false }) => {
@@ -31,10 +32,14 @@ const ForgotPassword = ({ heading, subHeading, value, setValue, errorName, butto
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor="#fff"
+            />
             <View style={Styles.forgotPassMainContainer}>
                 <View style={Styles.forgotPassDesContainer}>
                     <View>
-                        <Text style={{ ...Styles.forgotPassHeading, ...Styles.commonTextFont, color: '#fff' }}>{heading || 'Enter your heading'}</Text>
+                        <Text style={{ ...Styles.forgotPassHeading, ...Styles.commonTextFont, color: '#161D23' }}>{heading || 'Enter your heading'}</Text>
                     </View>
                     <View>
                         <Text style={{ ...Styles.forgotPassInfo, ...Styles.commonTextFont }}>

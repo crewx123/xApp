@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useState } from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, StatusBar } from 'react-native';
 import CustomInputField from '../../components/CustomInput/InputField';
 import CustomButton from '../../components/CustomButton/Button';
 import CheckBox from '@react-native-community/checkbox';
@@ -53,6 +54,10 @@ const LoginForm = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor="#fff"
+            />
             <View style={Styles.loginFormMainContainer}>
                 <View style={Styles.newUserDesContainer}>
                     <View>
@@ -91,11 +96,15 @@ const LoginForm = ({ navigation }) => {
                             <CheckBox
                                 value={rememberIsChecked}
                                 onValueChange={setRememberIsChecked}
+                                tintColors={{
+                                    true: '#4CAF50', // Color when checked
+                                    false: 'royalblue', // Color when unchecked (border color)
+                                }}
                             />
                             <Text style={Styles.textCommon}>Remember me</Text>
                         </View>
                         <View>
-                            <Text style={{ ...Styles.textCommon, color: '#D80D5F' }}>Forgot Password</Text>
+                            <Text style={{ ...Styles.textCommon, color: '#D80D5F' }}>Forgot Password?</Text>
                         </View>
                     </View>
 

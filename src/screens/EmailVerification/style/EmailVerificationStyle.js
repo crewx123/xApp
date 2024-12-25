@@ -4,20 +4,22 @@ import { fonts } from "../../../theme/Fonts";
 
 export const Styles = StyleSheet.create({
     emailVeriMainContainer: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: Colors.primary,
-        paddingHorizontal: 24
+        paddingHorizontal: 24,
+        marginTop: 24,
     },
     emailVeriDesContainer: {
         paddingVertical: 40,
-        gap: 24,
+        gap: 8
     },
     commonTextFont: {
-        fontFamily: fonts.COMMON_REGULAR
+        fontFamily: fonts.COMMON_REGULAR,
+        color: '#161D23',
     },
 
     forgotPassHeading: {
-        fontSize: 26, 
+        fontSize: 26,
 
     },
     forgotPassInfo: {
@@ -25,11 +27,11 @@ export const Styles = StyleSheet.create({
         color: '#575757',
     },
     formContainer: {
-        flex: 1, 
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         paddingBottom: 16,
-    }, 
+    },
     resendOtpTextContainer: {
         flexDirection: 'row', 
         justifyContent: 'center',

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Image, Dimensions } from 'react-native';
@@ -12,7 +13,7 @@ const UnitProduct = ({ imageWidth, imageHeight, showDescription, descriptionColo
 
     useEffect(() => {
         console.log(width);
-    }, [])
+    }, []);
     const data = [
         {
             _id: 1,
@@ -112,11 +113,11 @@ const UnitProduct = ({ imageWidth, imageHeight, showDescription, descriptionColo
                 <View style={{ flexDirection: 'column', gap: 4 }} key={product._id}>
                     <View key={product._id} style={Styles.CardImageContainer}>
                         <View style={{ width: '100%', overflow: 'hidden' }}>
-                            <Image source={productImg} style={{ ...Styles.CardImage, width: imageWidth || 100, height: imageHeight || 140 }} resizeMode='cover' />
+                            <Image source={productImg} style={{ ...Styles.CardImage, width: imageWidth || 100, height: imageHeight || 140 }} resizeMode="cover" />
                         </View>
                         <TouchableOpacity>
                             <Icon name="add-outline" size={gridOfTwo ? 25 : 20} color="#fff" style={{ ...Styles.addItemIcon, bottom: 5, right: 9 }} />
-                            <Icon name='add-outline' color={'#fff'} style={Styles.addItemIcon} size={gridOfTwo ? 25 : 20} />
+                            <Icon name="add-outline" color={'#fff'} style={Styles.addItemIcon} size={gridOfTwo ? 25 : 20} />
                         </TouchableOpacity>
                     </View>
                     {
@@ -127,7 +128,7 @@ const UnitProduct = ({ imageWidth, imageHeight, showDescription, descriptionColo
                                 <Text style={{ color: descriptionColor || '#fff', fontSize: 10.5, fontWeight: '400' }}>{product.color}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', marginLeft: -4 }}>
-                                <MaterialIcon name="currency-rupee" size={15} color={descriptionColor || "#fff"} />
+                                <MaterialIcon name="currency-rupee" size={15} color={descriptionColor || '#fff'} />
                                 <Text style={{ color: descriptionColor || '#fff', fontSize: 10.5, fontWeight: '700' }}>{product.amount}</Text>
                             </View>
                         </View>
@@ -144,7 +145,7 @@ const UnitProduct = ({ imageWidth, imageHeight, showDescription, descriptionColo
             keyExtractor={(item, index) => index.toString()}
             scrollEnabled={false}
         />
-    )
-}
+    );
+};
 
 export default UnitProduct;

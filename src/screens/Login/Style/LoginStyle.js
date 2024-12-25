@@ -17,26 +17,29 @@ export const styles = StyleSheet.create({
         objectFit: 'contain',
     },
     logo: {
+        // borderColor: '#000',
+        // borderWidth: 5,
         width: 185,
         height: 185,
         aspectRatio: 1,
     },
-    bottomContainer: { 
-        flex: 1, 
-        flexDirection: 'column', 
+    bottomContainer: {
+        flex: 1,
+        flexDirection: 'column',
         // borderWidth: 1,
-        justifyContent: 'center' 
+        justifyContent: 'center'
     },
     applicationName: {
         fontFamily: fonts.REGULAR,
         color: '#fff',
-        fontSize: 24.5,
+        fontSize: 16.5,
+        marginTop: -24,
     },
     buttonsMainContainer:{
         // gap: '420%', 
     },
     buttonsContainer: {
-        gap: 16,
+        gap: 24,
     },
 
     signUpContainer: {

@@ -1,12 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useEffect } from 'react';
-import { appLogo } from '../../theme/Images';
+// import { appLogo } from '../../theme/Images';
+import { eComLogo } from '../../theme/Images';
+import { frontPageBg } from '../../theme/Images';
+import { bargain1 } from '../../theme/Images';
 import CustomButton from '../../components/CustomButton/Button';
 import { styles } from './Style/LoginStyle';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useAuth } from '../../context/Auth/Auth';
-
+// 161D23
 import {
     SafeAreaView,
     Image,
@@ -15,6 +19,7 @@ import {
     Text,
     useColorScheme,
     View,
+    ImageBackground
 } from 'react-native';
 
 
@@ -22,14 +27,14 @@ const Login = ({ navigation }) => {
     const { setUserInformation } = useAuth();
     useEffect(() => {
         async function checkToken() {
-            const token = await EncryptedStorage.getItem("token");
+            const token = await EncryptedStorage.getItem('token');
             if (token) {
                 const userDataInfo = await EncryptedStorage.getItem('userProfileData');
-                const userAddressInfo = await EncryptedStorage.getItem('userAddressInfo')
-                console.log("userData: ", { ...JSON.parse(userAddressInfo) });
+                const userAddressInfo = await EncryptedStorage.getItem('userAddressInfo');
+                console.log('userData: ', { ...JSON.parse(userAddressInfo) });
                 setUserInformation((prev) => ({ ...prev, ...JSON.parse(userDataInfo) }));
                 setUserInformation((prev) => ({ ...prev, userAddressInfo: JSON.parse(userAddressInfo) }));
-                navigation.replace("Dashboard"); // Go to Home Screen 
+                navigation.replace('Dashboard'); // Go to Home Screen
             } else {
                 console.log('token not found');
             }
@@ -40,43 +45,53 @@ const Login = ({ navigation }) => {
     const gradientColors = {
         gradient1: ['#3596A9', '#379E8D'],
         gradient2: ['#D56736', '#D80D5F'],
-    }
+        gradient3: ['#161D23', '#161D80'],
+    };
 
     const handleOnPressSignIn = () => {
         navigation.navigate('LoginForm');
-    }
+    };
 
     return (
         <SafeAreaView style={{ height: '100%' }}>
             <StatusBar
-                barStyle="light-content"
-                backgroundColor={'#161D23'}
+                translucent
+                barStyle="dark-content"
+                backgroundColor="transparent"
             />
             <View style={styles.loginContainer}>
-                <View style={styles.logoContainer}>
-                    <Image source={appLogo} style={styles.logo} resizeMode="contain" />
-                    {/* <EcomLogo width={100} height={100} /> */}
-                    <Text style={styles.applicationName}>App Name</Text>
-                </View>
+                <ImageBackground
+                    source={frontPageBg}
+                    style={{...styles.loginContainer, paddingTop: StatusBar.currentHeight || 0 }}
+                    imageStyle={{ opacity: 0.3 }} // Reduces opacity here
+                >
+                    <View style={styles.logoContainer}>
+                        <Image source={eComLogo} style={styles.logo} resizeMode="contain" />
+                        {/* <EcomLogo width={100} height={100} /> */}
+                        <Text style={{...styles.applicationName, color: '#161D23'}}>Shop with your own price</Text>
+                    </View>
+                </ImageBackground>
                 <View style={{ flex: 1 }}>
                     <View style={styles.bottomContainer}>
                         <View style={{ paddingBottom: 24 }}>
-                            <Text style={styles.commonTextColor}>Login to Your Account</Text>
+                            <Text style={{...styles.commonTextColor, color: '#161D23'}}>Login to Your Account</Text>
                         </View>
                         <View style={styles.buttonsMainContainer}>
                             <View style={styles.buttonsContainer}>
-                                <CustomButton name="SIGN IN"
-                                    btnNameColor='#fff'
-                                    gradientColor={gradientColors.gradient1}
+                                <CustomButton name="Sign In"
+                                    btnNameColor="#fff"
+                                    gradientColor={gradientColors.gradient3}
                                     onPress={handleOnPressSignIn}
+                                    btnWidth="96%"
                                 />
                                 <CustomButton
                                     gradientColor={gradientColors.gradient2}
                                     IsDisplayIcon={true}
                                     iconName="google"
-                                    iconColor='#fff'
+                                    iconColor="#fff"
                                     name="Continue With Google"
-                                    btnNameColor='#fff'
+                                    btnNameColor="#fff"
+                                    btnWidth="96%"
                                 />
                             </View>
                         </View>
@@ -84,12 +99,12 @@ const Login = ({ navigation }) => {
                 </View>
                 <View style={{ paddingBottom: 20 }}>
                     <View style={styles.signUpContainer}>
-                        <Text style={styles.commonTextColor}>Don't have an account?</Text>
+                        <Text style={{...styles.commonTextColor, color: '#161D23'}}>Don't have an account?</Text>
                         <Text style={{ ...styles.commonTextColor, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
                     </View>
                 </View>
             </View>
         </SafeAreaView >
-    )
+    );
 };
 export default Login;

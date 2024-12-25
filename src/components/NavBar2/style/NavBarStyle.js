@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     logoNameContainer: {
         // borderColor: 'red',
@@ -28,13 +28,13 @@ export const styles = StyleSheet.create({
         width: '40%',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     title: {
         fontSize: 21,
         fontWeight: '900',
         letterSpacing: 2,
-        color: '#fff'
+        color: '#fff',
     },
     hamburgerButton: {
         // position: 'absolute',

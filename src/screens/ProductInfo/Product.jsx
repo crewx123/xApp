@@ -12,7 +12,7 @@ const Product = ({ navigation }) => {
     const [listOfProductSpecsDropdown, setListOfProductSpecsDropdown] = useState([false, false, false, false, false]);
     const handleOnChildPress = (e) => {
         e.stopPropagation();
-    }
+    };
 
     return (
         <SafeAreaView style={Styles.productInfoMainContainer} >

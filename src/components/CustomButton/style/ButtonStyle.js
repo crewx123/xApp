@@ -13,7 +13,7 @@ export const Styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 24,
         padding: 12,
-        // borderRadius: 8
+        borderRadius: 8
     },
     btnName: {
         fontFamily: fonts.COMMON_REGULAR,

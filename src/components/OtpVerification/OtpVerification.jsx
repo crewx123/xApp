@@ -18,7 +18,7 @@ const VerificationScreen = ({ code, setCode }) => {
                 inputs.current[index + 1].focus();
             }
         }
-        
+
         if (text.length === 0 && index > 0) {
             inputs.current[0].focus();
         }
@@ -28,14 +28,14 @@ const VerificationScreen = ({ code, setCode }) => {
         // On backspace, if the box is empty, move to the previous input
         if (event.nativeEvent.key === 'Backspace' && code[index] === '') {
             if (index > 0) {
-                newCode = [...code];
+                let newCode = [...code];
                 newCode[index - 1] = '';
                 setCode(newCode);
                 inputs.current[index - 1].focus();
             }
         }
         else if (code[index] !== '' && event.nativeEvent.key === 'Backspace') {
-            newCode = [...code];
+            let newCode = [...code];
             newCode[index] = '';
             setCode(newCode);
             if (index > 0) {

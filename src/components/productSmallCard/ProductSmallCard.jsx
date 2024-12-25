@@ -29,7 +29,7 @@ const ProductSmallCard = ({ navigation, imageWidth, imageHeight, topHeadingName,
                 <View style={{ flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row' }}>
                         { isLoading ?
-                            [1, 2, 3, 4, 5].map((_, index) => (
+                            [1, 2, 3, 4, 5, 6 ].map((_, index) => (
                                 <TouchableOpacity style={{ flexDirection: 'column' }} key={index} activeOpacity={1} >
                                     <View key={index} style={Styles.CardImageContainer}>
                                     <LoaderTemplate
@@ -43,7 +43,7 @@ const ProductSmallCard = ({ navigation, imageWidth, imageHeight, topHeadingName,
                                     </View>
                                 </TouchableOpacity>
                             ))
-                            : [1, 2, 3, 4, 5].map((_, index) => (<TouchableOpacity style={{ flexDirection: 'column' }} key={index} onPress={() => navigation.navigate('showProductInfo')}>
+                            : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (<TouchableOpacity style={{ flexDirection: 'column' }} key={index} onPress={() => navigation.navigate('showProductInfo')} activeOpacity={0.8}>
                                 <View key={index} style={Styles.CardImageContainer}>
                                     <Image source={productImg} style={{ ...Styles.CardImage, width: imageWidth || 100, height: imageHeight || 140 }} resizeMode="cover" />
                                     <TouchableOpacity>
@@ -72,7 +72,7 @@ const ProductSmallCard = ({ navigation, imageWidth, imageHeight, topHeadingName,
                         showSecondRow &&
                         <View style={{ flexDirection: 'row' }}>
                             { isLoading ?
-                                [1, 2, 3, 4, 5].map((_, index) => (
+                                [1, 2, 3, 4, 5, 6].map((_, index) => (
                                     <TouchableOpacity style={{ flexDirection: 'column' }} key={index} activeOpacity={1} >
                                         <View key={index} style={Styles.CardImageContainer}>
                                         <LoaderTemplate
@@ -86,13 +86,29 @@ const ProductSmallCard = ({ navigation, imageWidth, imageHeight, topHeadingName,
                                         </View>
                                     </TouchableOpacity>
                                 ))
-                                : [1, 2, 3, 4, 5].map((_, index) => (<View key={index} style={Styles.CardImageContainer}>
+                                : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, index) => (<TouchableOpacity style={{ flexDirection: 'column' }} key={index} onPress={() => navigation.navigate('showProductInfo')} activeOpacity={0.8}>
+                                <View key={index} style={Styles.CardImageContainer}>
                                     <Image source={productImg} style={{ ...Styles.CardImage, width: imageWidth || 100, height: imageHeight || 140 }} resizeMode="cover" />
                                     <TouchableOpacity>
                                         <Icon name="add-outline" size={25} color="#fff" style={{ ...Styles.addItemIcon, bottom: 5, right: 9 }} />
                                         <Icon name="add-outline" color={'#fff'} style={Styles.addItemIcon} size={25} />
                                     </TouchableOpacity>
-                                </View>))
+                                </View>
+                                {
+                                    showDescription &&
+                                    <View style={Styles.descriptionContainer}>
+                                        <Text style={{ color: '#000', fontSize: 11.5, fontWeight: '700' }}>Force Renew Zip Hoodie</Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Text style={{ color: '#000', fontSize: 10.5, fontWeight: '400' }}>Black</Text>
+                                            {/* <Text style={{ color: '#000', fontSize: 10, fontWeight: '600' }}> 4 Colors</Text> */}
+                                        </View>
+                                        <View style={{ flexDirection: 'row', marginLeft: -4 }}>
+                                            <MaterialIcon name="currency-rupee" size={15} color="#000" />
+                                            <Text style={{ color: '#000', fontSize: 10.5, fontWeight: '700' }}>500</Text>
+                                        </View>
+                                    </View>
+                                }
+                            </TouchableOpacity>))
                             }
                         </View>
                     }

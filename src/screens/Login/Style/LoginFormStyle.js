@@ -4,9 +4,10 @@ import { fonts } from '../../../theme/Fonts';
 
 export const Styles = StyleSheet.create({
     loginFormMainContainer: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: Colors.primary,
-        paddingHorizontal: 24
+        paddingHorizontal: 24,
+        marginTop: 24,
     },
     newUserDesContainer: {
         width: '100%',
@@ -15,16 +16,16 @@ export const Styles = StyleSheet.create({
     },
 
     textCommon: {
-        color: '#fff',
+        color: '#161D23',
         fontFamily: fonts.COMMON_REGULAR,
     },
 
     createAccount: {
         fontSize: 26,
     },
-    
+
     greetings: {
-        color: '#575757',
+        color: '#161D23',
         fontSize: 16,
     },
 

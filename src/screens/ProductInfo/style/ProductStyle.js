@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { fonts } from "../../../theme/Fonts";
 
-const { height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export const Styles = StyleSheet.create({
     productInfoMainContainer: {
@@ -12,9 +12,9 @@ export const Styles = StyleSheet.create({
         height: height-275,
     },
     image: {
-        width: 450,
+        width: width,
         height: height - 275,
-        backgroundColor: '#000'
+        backgroundColor: '#000',
     },
     productColorsContainer: {
         paddingVertical: 4,

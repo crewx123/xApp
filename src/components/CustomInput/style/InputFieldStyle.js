@@ -3,8 +3,8 @@ import { fonts } from "../../../theme/Fonts";
 
 export const Styles = StyleSheet.create({
     eachInputLabel: {
-      fontFamily: fonts.COMMON_REGULAR
-    },  
+      fontFamily: fonts.COMMON_REGULAR,
+    },
     inputContainer: {
         position: 'relative',
         // width: '100%',
@@ -30,7 +30,7 @@ export const Styles = StyleSheet.create({
 
       picker: {
         flex: 1,
-        color: '#fff',
+        color: '#161D23',
         fontFamily: fonts.COMMON_REGULAR,
       },
 

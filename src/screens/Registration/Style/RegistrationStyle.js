@@ -1,12 +1,13 @@
-import { StyleSheet } from "react-native";
-import { fonts } from "../../../theme/Fonts";
-import { Colors } from "../../../theme/Colors";
+import { StyleSheet } from 'react-native';
+import { fonts } from '../../../theme/Fonts';
+import { Colors } from '../../../theme/Colors';
 
 export const Styles = StyleSheet.create({
     registrationMainContainer: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: Colors.primary,
-        paddingHorizontal: 24
+        paddingHorizontal: 24,
+        marginTop: 24,
     },
     newUserDesContainer: {
         width: '100%',
@@ -15,13 +16,13 @@ export const Styles = StyleSheet.create({
     },
 
     textCommon: {
-        color: '#fff',
+        color: '#161D23',
     },
     createAccount: {
         fontFamily: fonts.COMMON_REGULAR,
         fontSize: 26,
     },
-    
+
     greetings: {
         color: '#575757',
         fontSize: 16,
