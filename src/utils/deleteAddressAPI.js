@@ -4,7 +4,7 @@ export const deleteAddressApi = async( setLoading, _id, ipAddress ) => {
     setLoading(true);
     try {
         console.log(_id);
-        const sendRequest = await axios.get(`http://${ipAddress}:8080/users/addressDelete?addressId=${_id}`);
+        const sendRequest = await axios.get(`http://${ipAddress}/users/addressDelete?addressId=${_id}`);
         const response = sendRequest.data;
         console.log(response);
         return true;

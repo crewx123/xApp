@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const Button = ({ name, btnNameColor, btnWidth = '100%', onPress = null, IsDisplayIcon = false, iconName, iconColor, gradientColor, isLoading = false }) => {
     return (
-        <View style={{...Styles.buttonContainer, width: btnWidth, borderRadius: 5 }}>
+        <View style={{ ...Styles.buttonContainer, width: btnWidth, borderRadius: 5 }}>
             <Pressable
                 onPress={onPress}
                 android_ripple={{ color: 'rgba(255, 255, 255, 0.3)' }} // Ripple effect color
@@ -27,9 +27,9 @@ const Button = ({ name, btnNameColor, btnWidth = '100%', onPress = null, IsDispl
                     style={Styles.btnNameContainer}
                 >
                     {IsDisplayIcon && <View style={Styles.iconContainer} >
-                        <Text >
-                            <Icon name={iconName} color={iconColor || '#000'} size={28} />
-                        </Text>
+                        {/* <Text > */}
+                        <Icon name={iconName} color={iconColor || '#000'} size={25} />
+                        {/* </Text> */}
                     </View>}
                     <View>
                         <Text style={{ ...Styles.btnName, color: btnNameColor || '#000' }}>

@@ -11,6 +11,7 @@ export const Styles = StyleSheet.create({
     btnNameContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+        alignItems: 'center',
         gap: 24,
         padding: 12,
         borderRadius: 8

@@ -48,14 +48,14 @@ const ProductAdCard = ({ adsHeadingName, tredingProductList = [], onPress = null
                             <LoaderTemplate
                                 colorList={['rgb(0, 0, 0)', 'rgb(50, 50, 50)']}
                                 boxWidth={windowWidth - 130}
-                                boxHeight={windowWidth - 80}
+                                boxHeight={windowWidth - 65}
                                 loaderTitle="XPRICE"
                                 loaderTitleColor="#fff"
                                 loaderTitleSize={18.5}
                             />
                         </View>
                     ))) : (tredingProductList.data)?.map(({ _id, images, name }) => (<View style={Styles.adsCardContainer} key={_id}>
-                        <Image source={{ uri: `${tredingProductList.root}/${images}` }} style={{...Styles.adImage, height: windowWidth - 80 }} resizeMode="cover" />
+                        <Image source={{ uri: `${tredingProductList.root}/${images}` }} style={{ ...Styles.adImage, height: windowWidth - 65 }} resizeMode="cover" />
                         <View style={Styles.eachSubCategoryInfoContainer}>
                             <View style={Styles.eachSubCategoryNameContainer}>
                                 <Text style={Styles.subCatergoryName}>{name}</Text>
@@ -65,7 +65,7 @@ const ProductAdCard = ({ adsHeadingName, tredingProductList = [], onPress = null
                             </TouchableOpacity>
                         </View>
                     </View>
-                ))}
+                    ))}
             </ScrollView>
         </View>
 

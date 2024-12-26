@@ -62,19 +62,19 @@ const Login = ({ navigation }) => {
             <View style={styles.loginContainer}>
                 <ImageBackground
                     source={frontPageBg}
-                    style={{...styles.loginContainer, paddingTop: StatusBar.currentHeight || 0 }}
+                    style={{ ...styles.loginContainer, paddingTop: StatusBar.currentHeight || 0 }}
                     imageStyle={{ opacity: 0.3 }} // Reduces opacity here
                 >
                     <View style={styles.logoContainer}>
                         <Image source={eComLogo} style={styles.logo} resizeMode="contain" />
                         {/* <EcomLogo width={100} height={100} /> */}
-                        <Text style={{...styles.applicationName, color: '#161D23'}}>Shop with your own price</Text>
+                        <Text style={{ ...styles.applicationName, color: '#161D23' }}>Shop with your own price</Text>
                     </View>
                 </ImageBackground>
                 <View style={{ flex: 1 }}>
                     <View style={styles.bottomContainer}>
                         <View style={{ paddingBottom: 24 }}>
-                            <Text style={{...styles.commonTextColor, color: '#161D23'}}>Login to Your Account</Text>
+                            <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Login to Your Account</Text>
                         </View>
                         <View style={styles.buttonsMainContainer}>
                             <View style={styles.buttonsContainer}>
@@ -91,6 +91,7 @@ const Login = ({ navigation }) => {
                                     iconColor="#fff"
                                     name="Continue With Google"
                                     btnNameColor="#fff"
+                                    onPress={null}
                                     btnWidth="96%"
                                 />
                             </View>
@@ -99,7 +100,7 @@ const Login = ({ navigation }) => {
                 </View>
                 <View style={{ paddingBottom: 20 }}>
                     <View style={styles.signUpContainer}>
-                        <Text style={{...styles.commonTextColor, color: '#161D23'}}>Don't have an account?</Text>
+                        <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Don't have an account?</Text>
                         <Text style={{ ...styles.commonTextColor, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
                     </View>
                 </View>
