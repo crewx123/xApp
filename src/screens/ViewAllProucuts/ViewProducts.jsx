@@ -8,10 +8,13 @@ import { poloImg } from '../../theme/Images';
 import UnitProduct from '../../components/Common/UnitProductCard/UnitProduct';
 import FilterModal from '../../components/Common/Filters/Filter';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import PageSwitchLoader from '../../components/Common/PageSwitchLoader/PageSwitchLoader';
 const { width } = Dimensions.get('window');
 
 
 const AllProductsList = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         ToastAndroid.show('Welcome to the List of the products', 1000);
     }, []);
@@ -23,7 +26,20 @@ const AllProductsList = () => {
         setReverse(status);
     };
 
-    return (
+
+    useEffect(() => {
+        const timeOut = setTimeout(() => {
+            setIsLoading(false);
+        }, 4000);
+
+        return () => clearTimeout(timeOut);
+    }, []);
+
+    if (isLoading) {
+        return <PageSwitchLoader isLoading={isLoading} />
+    }
+
+    else return (
         <View style={Styles.productListContainer}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -37,8 +53,8 @@ const AllProductsList = () => {
                         <UnitProduct
                             gridOfTwo={showTwoPressed}
                             imageWidth={showTwoPressed ? width / 2.25 : width / 4.6}
-                            // imageHeight={showTwoPressed ? 232 : 110}6x
-                            imageHeight={ showTwoPressed ? (5 / 4) * (width / 2.25) : (6 / 5) * (width / 4.6) }
+                            // imageHeight={showTwoPressed ? 232 : 110}
+                            imageHeight={showTwoPressed ? (5 / 4) * (width / 2.25) : (6 / 5) * (width / 4.6)}
                             showDescription={showTwoPressed ? true : false}
                             descriptionColor={'#000'}
                         />
