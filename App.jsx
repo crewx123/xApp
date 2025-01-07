@@ -22,6 +22,7 @@ import AddressSection from './src/screens/MyProfile/Address/Address';
 import Notification from './src/screens/MyProfile/Notification/Notification';
 import AddNewAddress from './src/screens/MyProfile/Address/AddNewAddress/AddNewAddress';
 import MyOrders from './src/screens/MyProfile/MyOrders/MyOrders';
+import ShowOrderDetails from './src/screens/MyProfile/MyOrders/OrderDetails/OrderDetails';
 import showProductInfo from './src/screens/ProductInfo/Product';
 import { AuthProvider } from './src/context/Auth/Auth';
 
@@ -133,6 +134,22 @@ const App = () => {
         <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
         <Stack.Screen name='NewAddress' component={AddNewAddress} options={{ headerShown: false }} />
         <Stack.Screen name='Orders' component={MyOrders} options={{ headerShown: false }} />
+        <Stack.Screen name='showOrderInfo' component={ShowOrderDetails} options={{
+          title: 'Order Details',
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+              <TouchableOpacity>
+                <Icon name="search-outline" size={20} color='#000' />
+              </TouchableOpacity>
+              <TouchableOpacity style={{ position: 'relative' }} >
+                <Icon name="bag-outline" size={20} color="#000" />
+                <View style={{ position: 'absolute', width: 14.2, height: 14.2, borderRadius: 50, backgroundColor: 'red', bottom: -2, right: -1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ color: '#fff', fontSize: 8.5 }}>0</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )
+        }} />
       </Stack.Navigator>
       {/* </NavigationContainer> */}
     </AuthProvider>

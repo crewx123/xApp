@@ -70,7 +70,12 @@ const MyOrders = ({ navigation }) => {
                 <View style={Styles.allOrdersContainer}>
                     {
                         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((_, index) => (
-                            <View key={index} style={Styles.eachOrderContainer}>
+                            <TouchableOpacity
+                                key={index}
+                                style={Styles.eachOrderContainer}
+                                activeOpacity={0.8}
+                                onPress={() => navigation.navigate('showOrderInfo')}
+                            >
                                 <View style={Styles.orderInfoContainer}>
                                     <View style={Styles.orderImagesContainer}>
                                         <Image source={productImg} style={{ width: 90, height: 90, borderRadius: 200 }} />
@@ -87,7 +92,7 @@ const MyOrders = ({ navigation }) => {
                                         size={16}
                                     />
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         ))
                     }
 
