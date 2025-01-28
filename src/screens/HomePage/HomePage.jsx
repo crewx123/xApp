@@ -14,6 +14,7 @@ import AddToCart from '../../components/Common/AddToCart/AddToCart';
 import { useAuth } from '../../context/Auth/Auth';
 import { fonts } from '../../theme/Fonts';
 import { subSubCategoryApi } from '../../utils/subSubCategoryAPI';
+import NavigateAnime from '../../components/Common/NavigationAnimation/NavigateAnimation';
 
 const { height } = Dimensions.get('window');
 
@@ -41,7 +42,7 @@ export default function HomePage({ navigation }) {
     };
 
     const showProductsOnPressShowAll = () => {
-        navigation.navigate('Products');
+        navigation.navigate('Products', { url: `product/showAllVariant` });
     };
 
     const showMyProfileOnPress = () => {
@@ -54,113 +55,115 @@ export default function HomePage({ navigation }) {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container} >
-            <StatusBar
-                translucent={false}
-                barStyle="light-content"
-                backgroundColor="#000"
-            />
-            <View>
-                <NavBar
-                    BackgroundColor={backgroundColor}
-                    setIsMenuDrawerVisible={setIsMenuDrawerVisible}
-                    setIsSearchBarDrawerVisible={setIsSearchBarDrawerVisible}
-                    setIsAddToCartDrawerVisible={setIsAddToCartDrawerVisible}
-                    handleOnPressMyProfile={showMyProfileOnPress}
+        <NavigateAnime>
+            <SafeAreaView style={styles.container} >
+                <StatusBar
+                    translucent={false}
+                    barStyle="light-content"
+                    backgroundColor="#000"
                 />
-            </View>
+                <View>
+                    <NavBar
+                        BackgroundColor={backgroundColor}
+                        setIsMenuDrawerVisible={setIsMenuDrawerVisible}
+                        setIsSearchBarDrawerVisible={setIsSearchBarDrawerVisible}
+                        setIsAddToCartDrawerVisible={setIsAddToCartDrawerVisible}
+                        handleOnPressMyProfile={showMyProfileOnPress}
+                    />
+                </View>
 
-            {isMenuDrawerVisible && <ModelDrawer
-                isDrawerVisible={isMenuDrawerVisible}
-                setIsDrawerVisible={setIsMenuDrawerVisible}
-            >
-                <View style={{ flex: 1, flexDirection: 'column' }}>
-                    <View style={{ borderBottomColor: '#fff', borderBottomWidth: 0.4, padding: 10 }}>
-                        <Text style={{ color: '#fff', textAlign: 'center', fontSize: 18 }}>Categories</Text>
-                    </View>
-                    <View
-                        style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between' }}
-                    >
-                        < View style={{ flexDirection: 'column', gap: 4, paddingHorizontal: 20, paddingVertical: 8 }}>
-                            {
-                                subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, name }, index) => (
-                                    <TouchableOpacity key={_id} >
-                                        <Text style={{ color: '#fff', fontSize: 14, fontFamily: fonts.COMMON_REGULAR }}>{name}</Text>
-                                    </TouchableOpacity>
-                                ))
-                            }
+                {isMenuDrawerVisible && <ModelDrawer
+                    isDrawerVisible={isMenuDrawerVisible}
+                    setIsDrawerVisible={setIsMenuDrawerVisible}
+                >
+                    <View style={{ flex: 1, flexDirection: 'column' }}>
+                        <View style={{ borderBottomColor: '#fff', borderBottomWidth: 0.4, padding: 10 }}>
+                            <Text style={{ color: '#fff', textAlign: 'center', fontSize: 18 }}>Categories</Text>
                         </View>
-                        <View style={{ height: 200 }}>
-                            <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false}>
+                        <View
+                            style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between' }}
+                        >
+                            < View style={{ flexDirection: 'column', gap: 4, paddingHorizontal: 20, paddingVertical: 8 }}>
                                 {
-                                    subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, images, name }, index) => (
-                                        index <= 5 && <View key={_id} style={{ position: 'relative' }} >
-                                            <Image source={{ uri: `${subSubCategoryData.root}/${images}` }} style={{ width: 160, height: 200 }} resizeMode="cover" />
-                                            <View style={{ position: 'absolute', bottom: 10, left: 7, transform: 'rotate(0deg)' }}>
-                                                <Text style={{ fontSize: 10, fontFamily: fonts.REGULAR, color: '#fff' }}>{name}</Text>
-                                            </View>
-                                        </View>
+                                    subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, name }, index) => (
+                                        <TouchableOpacity key={_id} >
+                                            <Text style={{ color: '#fff', fontSize: 14, fontFamily: fonts.COMMON_REGULAR }}>{name}</Text>
+                                        </TouchableOpacity>
                                     ))
                                 }
-                            </ScrollView>
+                            </View>
+                            <View style={{ height: 200 }}>
+                                <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false}>
+                                    {
+                                        subSubCategoryData.length !== 0 && (subSubCategoryData?.data).map(({ _id, images, name }, index) => (
+                                            index <= 5 && <View key={_id} style={{ position: 'relative' }} >
+                                                <Image source={{ uri: `${subSubCategoryData.root}/${images}` }} style={{ width: 160, height: 200 }} resizeMode="cover" />
+                                                <View style={{ position: 'absolute', bottom: 10, left: 7, transform: 'rotate(0deg)' }}>
+                                                    <Text style={{ fontSize: 10, fontFamily: fonts.REGULAR, color: '#fff' }}>{name}</Text>
+                                                </View>
+                                            </View>
+                                        ))
+                                    }
+                                </ScrollView>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </ModelDrawer >}
+                </ModelDrawer >}
 
-            {isSearchBarDrawerVisible && <SearchBarMenu
-                isDrawerVisible={isSearchBarDrawerVisible}
-                setIsDrawerVisible={setIsSearchBarDrawerVisible}
-            />}
+                {isSearchBarDrawerVisible && <SearchBarMenu
+                    isDrawerVisible={isSearchBarDrawerVisible}
+                    setIsDrawerVisible={setIsSearchBarDrawerVisible}
+                />}
 
-            {isAddToCartDrawerVisible && <AddToCart
-                isDrawerVisible={isAddToCartDrawerVisible}
-                setIsDrawerVisible={setIsAddToCartDrawerVisible}
-            />}
+                {isAddToCartDrawerVisible && <AddToCart
+                    isDrawerVisible={isAddToCartDrawerVisible}
+                    setIsDrawerVisible={setIsAddToCartDrawerVisible}
+                />}
 
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                bounces={false}
-                onScroll={handleScroll}
-            >
-                {/* Full-Screen Image */}
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={productImg}
-                        style={styles.image}
-                        resizeMode="cover"
-                    />
-                    <View style={styles.descriptionContainer}>
-                        <Text style={{ ...styles.description, marginBottom: -12 }}>NEW</Text>
-                        <Text style={styles.description}>ARRIVALS</Text>
-                        <Text style={{ fontFamily: fonts.REGULAR, color: '#fff', fontSize: 13.2 }}>Best in class - Now Available</Text>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                    onScroll={handleScroll}
+                >
+                    {/* Full-Screen Image */}
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={productImg}
+                            style={styles.image}
+                            resizeMode="cover"
+                        />
+                        <View style={styles.descriptionContainer}>
+                            <Text style={{ ...styles.description, marginBottom: -12 }}>NEW</Text>
+                            <Text style={styles.description}>ARRIVALS</Text>
+                            <Text style={{ fontFamily: fonts.REGULAR, color: '#fff', fontSize: 13.2 }}>Best in class - Now Available</Text>
+                        </View>
                     </View>
-                </View>
-                <ProductSmallCard
-                    showProductsOnPress={showProductsOnPressShowAll}
-                    navigation={navigation}
-                    isLoading={isCategoryLoading}
-                    loaderTitleSize={12}
-                />
-                <AdsCard
-                    adsHeadingName={'TRENDING NOW'}
-                    tredingProductList={subSubCategoryData}
-                    onPress={showProductsOnPressShowAll}
-                    isLoading={isCategoryLoading}
-                />
-                <ProductSmallCard
-                    topHeadingName="Shop"
-                    topSubHeadingName="Best Sellers"
-                    imageWidth={175}
-                    imageHeight={250}
-                    showDescription={true}
-                    showSecondRow={false}
-                    navigation={navigation}
-                    isLoading={isCategoryLoading}
-                    loaderTitleSize={14}
-                />
-            </ScrollView>
-        </SafeAreaView >
+                    <ProductSmallCard
+                        showProductsOnPress={showProductsOnPressShowAll}
+                        navigation={navigation}
+                        isLoading={isCategoryLoading}
+                        loaderTitleSize={12}
+                    />
+                    <AdsCard
+                        navigation={navigation}
+                        adsHeadingName={'TRENDING NOW'}
+                        tredingProductList={subSubCategoryData}
+                        isLoading={isCategoryLoading}
+                    />
+                    <ProductSmallCard
+                        topHeadingName="Shop"
+                        topSubHeadingName="Best Sellers"
+                        imageWidth={175}
+                        imageHeight={250}
+                        showDescription={true}
+                        showSecondRow={false}
+                        navigation={navigation}
+                        isLoading={isCategoryLoading}
+                        loaderTitleSize={14}
+                    />
+                </ScrollView>
+            </SafeAreaView >
+        </NavigateAnime>
     );
 }
 
@@ -168,10 +171,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        marginTop: 0,
     },
     imageContainer: {
         position: 'relative',
-        height: height,
+        height: height - StatusBar.currentHeight - 22,
         backgroundColor: '#000',
     },
     descriptionContainer: {

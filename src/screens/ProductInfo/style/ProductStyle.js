@@ -8,8 +8,19 @@ export const Styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    sizeSelectorBoxPopUpContainer: {
+        alignSelf: 'center',
+        width: '90%',
+        position: 'absolute',
+        bottom: 24,
+        backgroundColor: '#000',
+        zIndex: 5,
+        borderRadius: width/2,
+        padding: 17,
+        opacity: 0.98,
+    },
     productImagesContainer: {
-        height: height-275,
+        height: height-332,
     },
     image: {
         width: width,
@@ -27,8 +38,6 @@ export const Styles = StyleSheet.create({
         width: 57, 
         height: 75,
         borderRadius: 6,
-        borderWidth: 0.8,
-        borderColor: 'grey'
     },
     productCategoryInfoContainer: {
         flexDirection: 'column',

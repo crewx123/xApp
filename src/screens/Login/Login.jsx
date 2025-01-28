@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // import { appLogo } from '../../theme/Images';
 import { eComLogo } from '../../theme/Images';
 import { frontPageBg } from '../../theme/Images';
@@ -10,6 +10,7 @@ import CustomButton from '../../components/CustomButton/Button';
 import { styles } from './Style/LoginStyle';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useAuth } from '../../context/Auth/Auth';
+import NavigateAnime from '../../components/Common/NavigationAnimation/NavigateAnimation';
 // 161D23
 import {
     SafeAreaView,
@@ -19,12 +20,16 @@ import {
     Text,
     useColorScheme,
     View,
-    ImageBackground
+    ImageBackground,
+    Dimensions
 } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 
 const Login = ({ navigation }) => {
     const { setUserInformation } = useAuth();
+    const [isTokenPresent, setIsTokenPresent] = useState(null);
     useEffect(() => {
         async function checkToken() {
             const token = await EncryptedStorage.getItem('token');
@@ -37,6 +42,7 @@ const Login = ({ navigation }) => {
                 navigation.replace('Dashboard'); // Go to Home Screen
             } else {
                 console.log('token not found');
+                setIsTokenPresent(false);
             }
         }
         checkToken();
@@ -52,60 +58,63 @@ const Login = ({ navigation }) => {
         navigation.navigate('LoginForm');
     };
 
-    return (
-        <SafeAreaView style={{ height: '100%' }}>
-            <StatusBar
-                translucent
-                barStyle="dark-content"
-                backgroundColor="transparent"
-            />
-            <View style={styles.loginContainer}>
-                <ImageBackground
-                    source={frontPageBg}
-                    style={{ ...styles.loginContainer, paddingTop: StatusBar.currentHeight || 0 }}
-                    imageStyle={{ opacity: 0.3 }} // Reduces opacity here
-                >
-                    <View style={styles.logoContainer}>
-                        <Image source={eComLogo} style={styles.logo} resizeMode="contain" />
-                        {/* <EcomLogo width={100} height={100} /> */}
-                        <Text style={{ ...styles.applicationName, color: '#161D23' }}>Shop with your own price</Text>
-                    </View>
-                </ImageBackground>
-                <View style={{ flex: 1 }}>
-                    <View style={styles.bottomContainer}>
-                        <View style={{ paddingBottom: 24 }}>
-                            <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Login to Your Account</Text>
+    if (!isTokenPresent && isTokenPresent !== null)
+        return (
+            <SafeAreaView style={{ height: '100%' }}>
+                <NavigateAnime>
+                    <StatusBar
+                        translucent
+                        barStyle="dark-content"
+                        backgroundColor="transparent"
+                    />
+                    <View style={styles.loginContainer}>
+                        <ImageBackground
+                            source={frontPageBg}
+                            style={{ height: height / 1.93, paddingTop: StatusBar.currentHeight || 0 }}
+                            imageStyle={{ opacity: 0.3 }} // Reduces opacity here
+                        >
+                            <View style={styles.logoContainer}>
+                                <Image source={eComLogo} style={styles.logo} resizeMode="contain" />
+                                {/* <EcomLogo width={100} height={100} /> */}
+                                <Text style={{ ...styles.applicationName, color: '#161D23' }}>Shop with your own price</Text>
+                            </View>
+                        </ImageBackground>
+                        <View style={{ flex: 1 }}>
+                            <View style={styles.bottomContainer}>
+                                <View style={{ paddingBottom: 24 }}>
+                                    <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Login to Your Account</Text>
+                                </View>
+                                <View style={styles.buttonsMainContainer}>
+                                    <View style={styles.buttonsContainer}>
+                                        <CustomButton name="Sign In"
+                                            btnNameColor="#fff"
+                                            gradientColor={gradientColors.gradient3}
+                                            onPress={handleOnPressSignIn}
+                                            btnWidth="96%"
+                                        />
+                                        <CustomButton
+                                            gradientColor={gradientColors.gradient2}
+                                            IsDisplayIcon={true}
+                                            iconName="google"
+                                            iconColor="#fff"
+                                            name="Continue With Google"
+                                            btnNameColor="#fff"
+                                            onPress={null}
+                                            btnWidth="96%"
+                                        />
+                                    </View>
+                                </View>
+                            </View>
                         </View>
-                        <View style={styles.buttonsMainContainer}>
-                            <View style={styles.buttonsContainer}>
-                                <CustomButton name="Sign In"
-                                    btnNameColor="#fff"
-                                    gradientColor={gradientColors.gradient3}
-                                    onPress={handleOnPressSignIn}
-                                    btnWidth="96%"
-                                />
-                                <CustomButton
-                                    gradientColor={gradientColors.gradient2}
-                                    IsDisplayIcon={true}
-                                    iconName="google"
-                                    iconColor="#fff"
-                                    name="Continue With Google"
-                                    btnNameColor="#fff"
-                                    onPress={null}
-                                    btnWidth="96%"
-                                />
+                        <View style={{ paddingBottom: 20 }}>
+                            <View style={styles.signUpContainer}>
+                                <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Don't have an account?</Text>
+                                <Text style={{ ...styles.commonTextColor, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
                             </View>
                         </View>
                     </View>
-                </View>
-                <View style={{ paddingBottom: 20 }}>
-                    <View style={styles.signUpContainer}>
-                        <Text style={{ ...styles.commonTextColor, color: '#161D23' }}>Don't have an account?</Text>
-                        <Text style={{ ...styles.commonTextColor, color: '#D80D5F' }} onPress={() => navigation.navigate('Register')}>Sign Up</Text>
-                    </View>
-                </View>
-            </View>
-        </SafeAreaView >
-    );
+                </NavigateAnime>
+            </SafeAreaView >
+        );
 };
 export default Login;

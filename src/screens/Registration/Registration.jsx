@@ -12,6 +12,7 @@ import { sendOTP_Api } from '../../utils/sendOtpAPI';
 import { showAddressApi } from '../../utils/showAddressAPI';
 import { storeToken } from '../../utils/token';
 import { useAuth } from '../../context/Auth/Auth';
+import NavigateAnime from '../../components/Common/NavigationAnimation/NavigateAnimation';
 
 
 const Registration = ({ navigation }) => {
@@ -117,7 +118,7 @@ const Registration = ({ navigation }) => {
                     const { refreshToken } = response;
                     storeToken('token', refreshToken);
                     storeToken('userProfileData', JSON.stringify(response.userData));
-                    setUserInformation((prev) => ({...prev, ...response.userData}));
+                    setUserInformation((prev) => ({ ...prev, ...response.userData }));
                     storeToken('userAddressInfo', JSON.stringify([]));
                     setUserInformation((prev) => ({ ...prev, userAddressInfo: [] }));
                     navigation.navigate('Dashboard');
@@ -127,109 +128,112 @@ const Registration = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={{ height: '100%' }}>
-            <StatusBar
-                barStyle="dark-content"
-                backgroundColor="#fff"
-            />
-            {!otpVerificationProcess.isOtpSent &&
-                <EmailVerificationPage
-                    heading="Email Verification"
-                    subHeading={subHeadingContent}
-                    value={email}
-                    setValue={setEmail}
-                    buttonColor={gradientColors.gradient2}
-                    errorName={errors?.email}
-                    onPress={handleEmailVerification}
-                    isLoading={isLoading}
+        <NavigateAnime>
+
+            <SafeAreaView style={{ height: '100%' }}>
+                <StatusBar
+                    barStyle="dark-content"
+                    backgroundColor="#fff"
                 />
-            }
-            {
-                otpVerificationProcess.isOtpSent && !otpVerificationProcess.isEmailVerified &&
-                <OtpVerificationPage
-                    email={email}
-                    otp={otp}
-                    setOtp={setOtp}
-                    setOtpVerificationStatus={setOtpVerificationProcess}
-                />
-            }
+                {!otpVerificationProcess.isOtpSent &&
+                    <EmailVerificationPage
+                        heading="Email Verification"
+                        subHeading={subHeadingContent}
+                        value={email}
+                        setValue={setEmail}
+                        buttonColor={gradientColors.gradient2}
+                        errorName={errors?.email}
+                        onPress={handleEmailVerification}
+                        isLoading={isLoading}
+                    />
+                }
+                {
+                    otpVerificationProcess.isOtpSent && !otpVerificationProcess.isEmailVerified &&
+                    <OtpVerificationPage
+                        email={email}
+                        otp={otp}
+                        setOtp={setOtp}
+                        setOtpVerificationStatus={setOtpVerificationProcess}
+                    />
+                }
 
-            {otpVerificationProcess.isEmailVerified && <View style={Styles.registrationMainContainer}>
-                <View style={Styles.newUserDesContainer}>
-                    <View>
-                        <Text style={{ ...Styles.textCommon, ...Styles.createAccount }}>Create an account</Text>
+                {otpVerificationProcess.isEmailVerified && <View style={Styles.registrationMainContainer}>
+                    <View style={Styles.newUserDesContainer}>
+                        <View>
+                            <Text style={{ ...Styles.textCommon, ...Styles.createAccount }}>Create an account</Text>
+                        </View>
+                        <View>
+                            <Text style={{ ...Styles.greetings }}>Welcome! Please enter your details.</Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={{ ...Styles.greetings }}>Welcome! Please enter your details.</Text>
+                    <View style={Styles.formContainer}>
+                        <CustomInputField
+                            labelName="Name"
+                            name={fullName}
+                            setName={setFullName}
+                            iconName="person-outline"
+                            iconColor="#666"
+                            inputPlaceholder="Enter your name"
+                            errorName={errors.fullName}
+                        />
+
+                        <CustomInputField
+                            labelName="Email"
+                            name={email}
+                            setName={setEmail}
+                            iconName="mail-outline"
+                            iconColor="#666"
+                            inputType="email-address"
+                            inputPlaceholder="Enter your mail"
+                            errorName={errors.email}
+                        />
+
+                        <CustomInputField
+                            labelName="Mobile"
+                            name={mobile}
+                            setName={setMobile}
+                            iconName="call-outline"
+                            inputType="phone-pad"
+                            iconColor="#666"
+                            inputPlaceholder="Enter your mobile"
+                            maxInputSize={10}
+                            errorName={errors.mobile}
+                        />
+
+                        <CustomInputField
+                            labelName="Gender"
+                            name={gender}
+                            setName={setGender}
+                            iconName="male-female-outline"
+                            iconColor="#666"
+                            inputType="picker"
+                            inputPlaceholder="Select your gender"
+                            pickerList={pickerList}
+                            errorName={errors.gender}
+                        />
+
+                        <CustomInputField
+                            labelName="Password"
+                            name={password}
+                            setName={setPassword}
+                            iconName="lock-closed-outline"
+                            iconColor="#666"
+                            inputType="password"
+                            inputPlaceholder="Enter your password"
+                            errorName={errors.password}
+                        />
+
+                        <CustomButton
+                            gradientColor={gradientColors.gradient2}
+                            name="Sign Up"
+                            btnNameColor="#fff"
+                            onPress={handleOnSubmitRegisterForm}
+                        />
                     </View>
-                </View>
-                <View style={Styles.formContainer}>
-                    <CustomInputField
-                        labelName="Name"
-                        name={fullName}
-                        setName={setFullName}
-                        iconName="person-outline"
-                        iconColor="#666"
-                        inputPlaceholder="Enter your name"
-                        errorName={errors.fullName}
-                    />
-
-                    <CustomInputField
-                        labelName="Email"
-                        name={email}
-                        setName={setEmail}
-                        iconName="mail-outline"
-                        iconColor="#666"
-                        inputType="email-address"
-                        inputPlaceholder="Enter your mail"
-                        errorName={errors.email}
-                    />
-
-                    <CustomInputField
-                        labelName="Mobile"
-                        name={mobile}
-                        setName={setMobile}
-                        iconName="call-outline"
-                        inputType="phone-pad"
-                        iconColor="#666"
-                        inputPlaceholder="Enter your mobile"
-                        maxInputSize={10}
-                        errorName={errors.mobile}
-                    />
-
-                    <CustomInputField
-                        labelName="Gender"
-                        name={gender}
-                        setName={setGender}
-                        iconName="male-female-outline"
-                        iconColor="#666"
-                        inputType="picker"
-                        inputPlaceholder="Select your gender"
-                        pickerList={pickerList}
-                        errorName={errors.gender}
-                    />
-
-                    <CustomInputField
-                        labelName="Password"
-                        name={password}
-                        setName={setPassword}
-                        iconName="lock-closed-outline"
-                        iconColor="#666"
-                        inputType="password"
-                        inputPlaceholder="Enter your password"
-                        errorName={errors.password}
-                    />
-
-                    <CustomButton
-                        gradientColor={gradientColors.gradient2}
-                        name="Sign Up"
-                        btnNameColor="#fff"
-                        onPress={handleOnSubmitRegisterForm}
-                    />
-                </View>
-                {submitRegisterClicked && errors.length !== 0 && <View><Text style={{ color: 'red', fontStyle: 'italic' }}>{errors.status}</Text></View>}
-            </View>}
-        </SafeAreaView>
+                    {submitRegisterClicked && errors.length !== 0 && <View><Text style={{ color: 'red', fontStyle: 'italic' }}>{errors.status}</Text></View>}
+                </View>}
+            </SafeAreaView>
+        </NavigateAnime>
     );
 };
 

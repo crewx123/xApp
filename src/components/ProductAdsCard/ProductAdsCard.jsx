@@ -6,9 +6,11 @@ import { View, Text, TouchableOpacity, Image, ScrollView, Dimensions } from 'rea
 // import { productImg } from '../../theme/Images';
 import LoaderTemplate from '../Common/loaderTemplate';
 import { Styles } from './style/ProductAdsCardsStyle';
+import { useEffect, useState } from 'react';
 const windowWidth = Dimensions.get('window').width;
 
-const ProductAdCard = ({ adsHeadingName, tredingProductList = [], onPress = null, isLoading }) => {
+const ProductAdCard = ({ navigation, adsHeadingName, tredingProductList = [], isLoading }) => {
+    const [clickedVariantId, setClickedVariantId] = useState('');
 
     // const imageWidth = windowWidth - 130;
     // const [ imageHeight, setImageHeight ] = useState(0);
@@ -35,13 +37,21 @@ const ProductAdCard = ({ adsHeadingName, tredingProductList = [], onPress = null
     //     })
     //   }, [tredingProductList]);
 
+    useEffect(() => {
+        if (clickedVariantId !== '')
+            navigation.navigate('Products', { url: `product/showVariantDetails?variantId=${clickedVariantId}` });
+    }, [clickedVariantId]);
+
+    const showProductsOnPressShowAll = () => {
+        navigation.navigate('Products', { url: `product/showAllVariant` });
+    };
+
     return (
         <View style={Styles.mainContainer}>
             <View style={Styles.headingContainer}>
                 <Text style={Styles.headingText}>{adsHeadingName}</Text>
             </View>
             <ScrollView style={Styles.allSubCategoryContainer} horizontal={true} showsHorizontalScrollIndicator={false}>
-
                 {
                     isLoading ? ([1, 2, 3, 4, 5].map((_, index) => (
                         <View key={index} style={Styles.adsCardContainer}>
@@ -60,7 +70,7 @@ const ProductAdCard = ({ adsHeadingName, tredingProductList = [], onPress = null
                             <View style={Styles.eachSubCategoryNameContainer}>
                                 <Text style={Styles.subCatergoryName}>{name}</Text>
                             </View>
-                            <TouchableOpacity style={Styles.btnContainer} onPress={onPress}>
+                            <TouchableOpacity style={Styles.btnContainer} onPress={showProductsOnPressShowAll}>
                                 <Text style={Styles.btnName}>Shop Now</Text>
                             </TouchableOpacity>
                         </View>

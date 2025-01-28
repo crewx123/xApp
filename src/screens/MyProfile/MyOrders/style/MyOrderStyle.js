@@ -23,7 +23,7 @@ export const Styles = StyleSheet.create({
 
     backBtnContainer: {
         position: 'absolute',
-        left: 0
+        left: 0,
     },
     searchBarContainer: { 
         flexDirection: 'row', 

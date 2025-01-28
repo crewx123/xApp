@@ -12,7 +12,7 @@ export const loginApi = async (setLoader, loginCredentials, setErrors, setUserIn
           'Content-Type': 'application/json',
         },
         responseType: 'json',
-      }
+      },
     );
     const response = sendRequest.data;
     console.log('Response:', response);

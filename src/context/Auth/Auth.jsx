@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const [isAddressLoading, setIsAddressLoading] = useState(false);
     const [userInformation, setUserInformation] = useState({
-        ipAddress: `192.168.100.56:8080`,
+        ipAddress: `192.168.1.9:8080`,
     });
 
     const navigationRef = useNavigationContainerRef();

@@ -30,6 +30,10 @@ const MyProfile = ({ navigation }) => {
         navigation.navigate('Orders');
     };
 
+    const onPressPrivacy = () => {
+        navigation.navigate('policy');
+    }
+
     const handleShare = async () => {
         try {
             const result = await Share.share({
@@ -60,7 +64,7 @@ const MyProfile = ({ navigation }) => {
         },
         {
             heading: 'Other Information',
-            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', handleShare], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', null]],
+            subMenuList: [['About us', 'info', null], ['Share the app', 'sharealt', handleShare], ['Help & Support', 'question-circle', null], ['Terms and Policies', 'exclamation-circle', onPressPrivacy]],
         },
         {
             heading: 'Actions',
